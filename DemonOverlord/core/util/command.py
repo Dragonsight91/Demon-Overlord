@@ -27,9 +27,9 @@ class Command(object):
         # is it a special case??
         # WE DO
         if (
-            temp[1] in bot.commands.interactions["alone"].keys()
-            or temp[1] in bot.commands.interactions["social"].keys()
-            or temp[1] in bot.commands.interactions["combine"].keys()
+            temp[1] in bot.commands.interactions["alone"]
+            or temp[1] in bot.commands.interactions["social"]
+            or temp[1] in bot.commands.interactions["combine"]
         ):
             self.command = "interactions"
             self.action = temp[1]
@@ -37,7 +37,7 @@ class Command(object):
             self.params = temp[2:] if len(temp) > 2 else None
 
         # WE LUV
-        elif temp[1] in bot.commands.relations.keys():
+        elif temp[1] in bot.commands.relations:
             self.action = "relation"
             self.params = temp[2:] if len(temp) > 2 else None
         elif self.command == "chat":
