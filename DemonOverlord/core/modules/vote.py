@@ -15,8 +15,8 @@ async def handler(command) -> discord.Embed:
         vote = compile(vote_str)
 
 
-async def (parameter_list):
-    pass
+async def handle_vote(msg_id:int) -> None:
+    pass 
 
 async def compile(string : str) -> dict:
 

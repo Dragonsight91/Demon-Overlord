@@ -65,8 +65,6 @@ class Command(object):
                         response = await izzy.handler(self)
                     elif self.command == "chat":
                         response = await chat.handler(self)
-                    elif self.command == "vote":
-                        response = await vote.handler(self)
                     elif self.command == "minesweeper":
                         response = await minesweeper.handler(self)
                     else:
