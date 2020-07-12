@@ -1,42 +1,61 @@
-# Demon Overlord - A bot to supplement some cool functions
+# Demon Overlord
 
-## The Directory Structure
 
-```
-/
-+-- src
-|   +-- commands            (everything to do with handling custom commands)
-|   |   +-- interactions    (the interactions package)
-|   |   +-- __init__.py
-|   |   +-- help.py         (module to handle the help command)
-|   |   +-- ship.py         (handling everything to do with Izzy's ships)
-|   |   \-- (more stuff)
-|   +-- main.py             (main bot executable)
-|   \-- misc.py             (miscellaneous functions to make main.py less crowded)
-+-- extra                   (any extra modules like api integrations)
-|   +-- api                 (any api modules go here)
-|   |   \-- __init__.py
-|   \-- __init__.py
-+-- Procfile                (the start script for heroku)
-+-- requirements.txt        (the non-standard packages that are used)
-+-- LICENSE                 (The License File)
-\-- README.md               (the readme)
-```
 
-## How all this works
-Every command gets its own file with the name of the command. Here's an example:
+A discord bot custom built for the use of The InnerDemons discord community 
 
-We want to create the command `test` what do we do?
 
-1. create a file named `test.py` in `src/commands/`
-2. create a function named `test_handler` that taked the following positional arguments in this order:
-    ```
-    bot      :: a reference to the bot
-    message  :: a reference to the message being handled (for ease of use)
-    command  :: the parsed command that is being handled.
-    devRole  :: the developer role
-    ```
-3. import `test` in `src/commands/__init__.py` and add it to the `__all__` list 
-3. add the command to the `handler` function in `src/misc.py`
 
-that's it, everything inside your custom module is up to you. 
+## Installation
+
+**THE BOT ONLY WORKS ON PYTHON 3.7+**
+
+The bot uses three environment variables
+
+- DISCORD_TESTBOT_TOKEN
+- DISCORD_MAIN_TOKEN
+- TENOR_KEY
+
+
+
+*NOTE: You only need one of the bot keys.*
+
+To get the bot keys
+
+1. Ask on programmer-hell to be added to the dev team
+2. Accept the invite
+3. Go to `Applications` and select the bot you want.
+4. Got to `Bots` copy the `TOKEN` next to the bot icon
+
+
+
+Once you have the bot key, add the environment vatriable.
+
+`export <var_name>=<token_value>`
+
+
+
+The demon overlord automatically installs other requirements when run incase you do not have the required permissons, use 
+
+`pip --user install -r requirements.txt`
+
+
+## Running The Bot
+
+
+
+You can run the bot in two different modes. 
+
+**FOR TESTING**
+
+Please only use `testmao` for testing any features. 
+
+`python run.py --dev`
+
+
+
+**FOR DEPLOYMENT** 
+
+If you're trying to do this and you're reading this, you're doing something very wrong. Don't do it.
+
+Talk to the dev demons.

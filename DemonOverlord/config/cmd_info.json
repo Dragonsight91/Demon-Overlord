@@ -2,14 +2,14 @@
     "help": {
         "command_syntax": "help {command}",
         "description": "This shows all Comands and how to use them. To get more info, use this command with a command or a category.",
-        "timeout": 25,
+        "timeout": 30,
         "commands": [
             {
                 "command": "help",
                 "syntax": "help {command}",
                 "description": "Calls this Help page.",
                 "ratelimit": {
-                    "limit": 0,
+                    "limit": 60,
                     "user_dependent": true
                 },
                 "actions": null
@@ -29,7 +29,7 @@
                 "syntax": "izzy {action}",
                 "description": "Shows Information about Izzy's pages, including some hidden stuff.",
                 "ratelimit": {
-                    "limit": 10,
+                    "limit": 60,
                     "user_dependent": true
                 },
                 "actions": [
@@ -102,12 +102,12 @@
     "relations": {
         "command_syntax": "{command} {action} {@user}",
         "description": "",
-        "timeout": 25,
+        "timeout": 30,
         "commands": []
     },
     "utility": {
         "command_syntax": "{command} {action} {args}",
-        "timeout": 20,
+        "timeout": 25,
         "description": "Commands that can be used to get info and tools to make stuff easier",
         "commands": [
             {
@@ -115,7 +115,7 @@
                 "syntax": "chat {category}",
                 "description": "shows information about the Chats on the Server.",
                 "ratelimit": {
-                    "limit": 0,
+                    "limit": 20,
                     "user_dependent": true
                 },
                 "actions": null
@@ -125,7 +125,7 @@
                 "syntax": "vote {action} {params}",
                 "description": "creates or removes a vote.",
                 "ratelimit": {
-                    "limit": 0,
+                    "limit": 300,
                     "user_dependent": true
                 },
                 "actions": [
@@ -199,14 +199,14 @@
     "fun": {
         "command_syntax": "{command} {action} {params}",
         "description": "All the Fun commands UwU",
-        "timeout": 15,
+        "timeout": 20,
         "commands": [
             {
                 "command": "quote",
                 "syntax": "quote",
                 "description": "Gets a random, possibly Inspirational, Image Quote from Inspirobot.",
                 "ratelimit": {
-                    "limit": 0,
+                    "limit": 300,
                     "user_dependent": true
                 },
                 "actions": null
@@ -216,7 +216,7 @@
                 "syntax": "bubble",
                 "description": "creates a 10x10 grid of 'pop' spoilers where one may be replaced with nut or uwu",
                 "ratelimit": {
-                    "limit": 0,
+                    "limit": 300,
                     "user_dependent": true
                 },
                 "actions": null

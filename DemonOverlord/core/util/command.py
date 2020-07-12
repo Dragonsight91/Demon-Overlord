@@ -50,6 +50,7 @@ class Command(object):
 
     async def exec(self) -> None:
 
+
         try:
             if self.bot.commands.ratelimits.exec(self):
                 try:
@@ -71,6 +72,7 @@ class Command(object):
                         response = BadCommandResponse(self)
                 except Exception:
                     response = ErrorResponse(self, traceback.format_exc())
+
             else:
                 # rate limit error
                 response = RateLimitResponse(self)

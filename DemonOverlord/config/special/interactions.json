@@ -111,7 +111,7 @@
             }
         },
         "listen": {
-            "query": "listen",
+            "query": "music",
             "type": "music",
             "emoji": "izzyyay",
             "action": {
