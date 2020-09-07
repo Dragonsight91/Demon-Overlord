@@ -218,6 +218,47 @@
                 "actions": null
             },
             {
+                "command": "dice",
+                "syntax": "dice {die_type}",
+                "description": "Rolls one a dice.",
+                "ratelimit": {
+                    "limit": 20,
+                    "user_dependent": true
+                },
+                "actions": [
+                    {
+                        "action": "d6",
+                        "description": "rolls a dice with 6 sides",
+                        "usage": "d6",
+                        "params": null
+                    },
+                    {
+                        "action": "d8",
+                        "description": "rolls a dice with 8 sides",
+                        "usage": "d8",
+                        "params": null
+                    },
+                    {
+                        "action": "d10",
+                        "description": "rolls a dice with 10 sides",
+                        "usage": "d10",
+                        "params": null
+                    },
+                    {
+                        "action": "d12",
+                        "description": "rolls a dice with 12 sides",
+                        "usage": "d12",
+                        "params": null
+                    },
+                    {
+                        "action": "d20",
+                        "description": "rolls a dice with 20 sides",
+                        "usage": "d20",
+                        "params": null
+                    }
+                ]
+            },
+            {
                 "command": "minesweeper",
                 "syntax": "minesweeper {action}",
                 "description": "start a game of minesweeper",
