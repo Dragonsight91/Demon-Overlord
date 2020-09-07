@@ -28,6 +28,14 @@ async def handler(command) -> discord.Embed:
         return BadCommandResponse(command)
 
 
+async def gen_help(command):
+    command.action = command.command
+    command_help = list(
+        filter(lambda x: x["command"] == command.command, command.bot.commands.list)
+    )
+    return HelpCommand(command, command_help[0])
+
+
 # each normal command only gets this.
 class HelpCommandCategory(TextResponse):
     def __init__(self, command, help_dict: dict):

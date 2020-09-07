@@ -20,9 +20,12 @@ async def handler(command) -> discord.Embed:
         )
     else:
         # filter mentions from params. double mentions are ignored
-        if command.params != None and len(command.mentions) > 0:
+        if command.params != None and len(command.mentions) > 0 and command.params[0] != "everyone":
             command.params = command.params[len(command.mentions) :]
             mentions = [i.display_name for i in command.mentions]
+        elif command.params != None and len(command.mentions) > 0 and command.params[0] == "everyone":
+            command.params = command.params[len(command.mentions)+1:]
+            mentions = ["everyone"] + [i.display_name for i in command.mentions]
         elif command.params != None and command.params[0] == "everyone":
             command.params = command.params[1:]  # filter everyone
             mentions = ["everyone"]

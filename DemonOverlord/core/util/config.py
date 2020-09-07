@@ -72,9 +72,6 @@ class CommandConfig(object):
         with open(os.path.join(confdir, "special/interactions.json")) as f:
             self.interactions = json.load(f)
 
-        with open(os.path.join(confdir, "special/relations.json")) as f:
-            self.relations = json.load(f)
-
         with open(os.path.join(confdir, "cmd_info.json")) as f:
             self.command_info = json.load(f)
 

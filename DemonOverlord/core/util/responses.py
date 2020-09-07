@@ -20,10 +20,11 @@ class ImageResponse(discord.Embed):
 
 
 class RateLimitResponse(TextResponse):
-    def __init__(self, command):
+    def __init__(self, command, time_remain):
         super().__init__(
-            f"RATELIMIT ERROR FOR: {command.command} ", color=0xFF0000, icon="⛔"
+            f"RATELIMIT ERROR FOR: {command.command} [{time_remain} seconds]", color=0xFF0000, icon="⛔"
         )
+
         self.timeout = 10
 
         # add necessary fields

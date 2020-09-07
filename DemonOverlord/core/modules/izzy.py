@@ -1,17 +1,14 @@
 import discord
 
 from DemonOverlord.core.util.responses import TextResponse, BadCommandResponse
-from DemonOverlord.core.modules.help import HelpCommand
+from DemonOverlord.core.modules.help import gen_help
+
 
 async def handler(command):
 
     # default action if there is none: just get the help info for the command
     if command.action == None:
-        command.action = command.command
-        command_help = list(
-            filter(lambda x: x["command"] == command.command, command.bot.commands.list)
-        )
-        return HelpCommand(command, command_help[0])
+        return await gen_help(command)
 
     # if we have it: use it. if it's wrong, throw an error
     elif command.action in command.bot.commands.izzylinks:

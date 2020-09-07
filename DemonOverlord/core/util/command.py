@@ -47,12 +47,10 @@ class Command(object):
             self.params = temp[2:] if len(temp) > 2 else None
 
         # WE LUV
-        elif temp[1] in bot.commands.relations:
-            self.action = "relation"
-            self.params = temp[2:] if len(temp) > 2 else None
         elif self.command == "chat":
             self.action = None
             self.params = temp[2:] if len(temp) > 2 else None
+        
         # Y'AIN'T SPECIAL, YA LIL BITCH
         else:
             self.action = temp[2] if len(temp) > 2 else None
@@ -63,16 +61,12 @@ class Command(object):
         try:
             try:
                 if self.command in dir(cmds):
-                    if self.bot.commands.ratelimits.exec(self):
+                    limit = self.bot.commands.ratelimits.exec(self)
+                    if not limit["isActive"]:
                         response = await getattr(cmds, self.command).handler(self)
-
-                    # commented for 2.0.0a1
-                    # elif self.command == "vote":
-                    #    response = await vote.handler(self)
-
                     else:
                         # rate limit error
-                        response = RateLimitResponse(self)
+                        response = RateLimitResponse(self, limit["timeRemain"])
 
                 else:
                     response = BadCommandResponse(self)

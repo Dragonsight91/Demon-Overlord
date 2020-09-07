@@ -21,8 +21,9 @@ class RateLimiter(object):
 
     def exec(self, command) -> tuple:
         user_template = {"user": command.invoked_by.id, "timestamp": 0}
+        out = {"isActive": False, "timeRemain": 0}
 
-        # is this command limited? overwrites global limis
+        # is this command limited? overwrites global limits
         if self.limits[command.command].limit:
 
             # the limit is per-user
@@ -39,24 +40,37 @@ class RateLimiter(object):
                         self.lastExec[command.command]["ulist"][last_exec[0][0]][
                             "timestamp"
                         ] = int(time())
-                        return True
+                        out["isActive"] = False
+                        return out
                     else:
-                        return False
+                        out["isActive"] = True
+                        out["timeRemain"] = (
+                            int(time())
+                            - self.lastExec[command.command]["ulist"][last_exec[0][0]][
+                                "timestamp"
+                            ]
+                        )
 
                 else:
                     # set the user profile, first execution so we can let it pass
                     self.lastExec[command.command]["ulist"].append(user_template)
-                    return True
+                    out["isActive"] = False
+
             # global command limit
             else:
                 last_exec = self.lastExec[command.command]
                 if self.limits[command.command].test(last_exec["timestamp"]):
                     self.lastExec[command.command]["timestamp"] = int(time())
-                    return True
+                    out["isActive"] = False
                 else:
-                    return False
+                    out["isActive"] = True
+                    out["timeRemain"] = (
+                        int(time()) - self.lastExec[command.command]["timestamp"]
+                    )
         else:
-            return True
+
+            out["isActive"] = False
+        return out
 
 
 # rate limit object

@@ -28,11 +28,12 @@ class DiceResponse(TextResponse):
                 out.append(bot.config.emoji["numbers"][int(i)])
             return "".join(out)
 
-        title = f":game_die: Dice - {command.action.upper()}"
+
+        title = f"Dice - {command.action.upper()}"
         super().__init__(
             title,
             color=0x2CD5C9,
-            icon=command.bot.config.izzymojis["what"] or "❓",
+            icon=":game_die:",
         )
         self.description = get_roll(
             command.bot, str(randint(1, int(command.action[1:])))
