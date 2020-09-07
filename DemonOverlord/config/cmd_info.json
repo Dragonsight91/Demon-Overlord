@@ -2,14 +2,14 @@
     "help": {
         "command_syntax": "help {command}",
         "description": "This shows all Comands and how to use them. To get more info, use this command with a command or a category.",
-        "timeout": 30,
+        "timeout": 60,
         "commands": [
             {
                 "command": "help",
                 "syntax": "help {command}",
                 "description": "Calls this Help page.",
                 "ratelimit": {
-                    "limit": 60,
+                    "limit": 15,
                     "user_dependent": true
                 },
                 "actions": null
@@ -29,38 +29,44 @@
                 "syntax": "izzy {action}",
                 "description": "Shows Information about Izzy's pages, including some hidden stuff.",
                 "ratelimit": {
-                    "limit": 60,
+                    "limit": 15,
                     "user_dependent": true
                 },
                 "actions": [
                     {
                         "action": "art",
                         "description": "Our overlord's instagram accounts.",
-                        "usage": "izzy art",
+                        "usage": "art",
                         "params": null
                     },
                     {
                         "action": "social",
                         "description": "Our overlord's social Media Accounts.",
-                        "usage": "izzy social",
+                        "usage": "social",
                         "params": null
                     },
                     {
                         "action": "shop",
                         "description": "Witchcraft and supreme capitalism.",
-                        "usage": "izzy shop",
+                        "usage": "shop",
                         "params": null
                     },
                     {
                         "action": "website",
                         "description": "a link to Izzy's website. HOW FUN.",
-                        "usage": "izzy website",
+                        "usage": "website",
                         "params": null
                     },
                     {
                         "action": "stickers",
                         "description": "Get links to all available sticker packs.",
-                        "usage": "izzy stickers",
+                        "usage": "stickers",
+                        "params": null
+                    },
+                    {
+                        "action": "support",
+                        "description": "Get links to websites in order to pledge sustenance to the overlord",
+                        "usage": "support",
                         "params": null
                     }
                 ]
@@ -70,10 +76,6 @@
             {
                 "command": "interactions",
                 "description": "Commands that allow gif based interactions between server members."
-            },
-            {
-                "command": "relations",
-                "description": "Commands that allow relationships between server members."
             },
             {
                 "command": "utility",
@@ -97,12 +99,6 @@
             "limit": 0,
             "user_dependent": true
         },
-        "commands": []
-    },
-    "relations": {
-        "command_syntax": "{command} {action} {@user}",
-        "description": "",
-        "timeout": 30,
         "commands": []
     },
     "utility": {

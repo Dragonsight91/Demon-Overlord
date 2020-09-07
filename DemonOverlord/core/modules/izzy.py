@@ -3,29 +3,42 @@ import discord
 from DemonOverlord.core.util.responses import TextResponse, BadCommandResponse
 from DemonOverlord.core.modules.help import HelpCommand
 
-
 async def handler(command):
+
+    # default action if there is none: just get the help info for the command
     if command.action == None:
         command.action = command.command
         command_help = list(
             filter(lambda x: x["command"] == command.command, command.bot.commands.list)
         )
         return HelpCommand(command, command_help[0])
-    elif command.action in command.bot.commands.izzylinks.keys():
-        return IzzyLink(command, command.bot.commands.izzylinks[command.action])
+
+    # if we have it: use it. if it's wrong, throw an error
+    elif command.action in command.bot.commands.izzylinks:
+        try:
+            return IzzyLink(command, command.bot.commands.izzylinks[command.action])
+        except:
+            return BadCommandResponse(command)
+
+    # default action if shit goes wee: bad comand
     else:
         return BadCommandResponse(command)
 
 
 class IzzyLink(TextResponse):
     def __init__(self, command, links: dict):
+
+        # initialize the Parent with necessary attributes
         super().__init__(
             f'Izzy - {command.action.replace("_", " ").upper()}',
             color=0x784381,
             icon=command.bot.config.izzymojis["izzyyay"],
         )
-        print(command.action)
+        print(f"[MSG]: {command.action}")
+
         if command.action != "forbidden_fruit":
+
+            # get and set the description for the command
             command_obj = list(
                 filter(lambda x: x["command"] == "izzy", command.bot.commands.list)
             )[0]
@@ -34,8 +47,10 @@ class IzzyLink(TextResponse):
             )
             self.description = action_obj[0]["description"]
         else:
+            # set the timeout and the description (this is static, no need to load it from config)
             self.timeout = 20
             self.description = "This is the forbidden fruit. Careful, it vanishes."
 
-        for i in links:
-            self.add_field(name=i["name"], value=i["link"])
+        # set all links as fields
+        for link in links:
+            self.add_field(name=link["name"], value=link["link"])
