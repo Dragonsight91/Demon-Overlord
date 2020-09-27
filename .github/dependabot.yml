@@ -10,7 +10,7 @@ updates:
     commit-message:
       # Prefix all commit messages with "npm"
       prefix: "[DEPENDABOT]"
-      labels:
+    labels:
       - "update"
       - "dependencies"
     schedule:
