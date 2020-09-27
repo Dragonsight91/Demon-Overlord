@@ -9,7 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     commit-message:
       # Prefix all commit messages with "npm"
-      prefix: "[DEPENDABOT UPDATE]"
+      prefix: "[DEPENDABOT]"
       labels:
       - "update"
       - "dependencies"
