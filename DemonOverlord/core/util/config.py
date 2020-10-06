@@ -71,6 +71,7 @@ class CommandConfig(object):
         self.izzylinks = None
         self.chats = None
         self.short = dict()
+        self.minecraft = dict()
 
         with open(os.path.join(confdir, "special/interactions.json")) as f:
             self.interactions = json.load(f)
@@ -83,6 +84,9 @@ class CommandConfig(object):
 
         with open(os.path.join(confdir, "special/chats.json")) as f:
             self.chats = json.load(f)
+        
+        with open(os.path.join(confdir, "special/minecraft.json")) as f:
+            self.minecraft = json.load(f)
 
         for i in self.command_info.keys():
             for j in self.command_info[i]["commands"]:

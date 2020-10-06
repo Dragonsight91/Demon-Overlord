@@ -122,7 +122,7 @@
                 "syntax": "minecraft {action} {params}",
                 "description": "a command to get info about the MC server",
                 "ratelimit": {
-                    "limit": 300,
+                    "limit": 20,
                     "user_dependent": true
                 },
                 "actions": [{
