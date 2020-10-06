@@ -227,8 +227,6 @@ class GameInteraction(CombineInteraction):
 
 
 # alone interaction, stuff you do yourself
-
-
 class AloneInteractions(Interaction):
     def __init__(
         self,
