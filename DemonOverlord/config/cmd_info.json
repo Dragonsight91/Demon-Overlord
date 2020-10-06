@@ -117,6 +117,37 @@
                 "actions": null
             },
             {
+                "command": "minecraft",
+                "short": null,
+                "syntax": "minecraft {action} {params}",
+                "description": "a command to get info about the MC server",
+                "ratelimit": {
+                    "limit": 300,
+                    "user_dependent": true
+                },
+                "actions": [{
+                    "action": "info",
+                    "description": "Gives general information about the Minecraft server",
+                    "usage": "info",
+                    "params": []
+                }, {
+                    "action": "rules",
+                    "description": "Shows the rules of the server",
+                    "usage": "rules",
+                    "params": []
+                }, {
+                    "action": "mods",
+                    "description": "Shows the mods that are definitely allowed.",
+                    "usage": "mods",
+                    "params": []
+                } , {
+                    "action": "datapacks",
+                    "description": "Shows the datapacks installed on the server",
+                    "usage": "datapacks",
+                    "params": []
+                }]
+            },
+            {
                 "command": "vote",
                 "short": null,
                 "syntax": "vote {action} {params}",
