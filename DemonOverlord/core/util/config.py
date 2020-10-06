@@ -78,10 +78,10 @@ class CommandConfig(object):
         with open(os.path.join(confdir, "cmd_info.json")) as f:
             self.command_info = json.load(f)
 
-        with open(os.path.join(confdir, "../data/commands/izzylinks.json")) as f:
+        with open(os.path.join(confdir, "special/izzylinks.json")) as f:
             self.izzylinks = json.load(f)
 
-        with open(os.path.join(confdir, "../data/commands/chats.json")) as f:
+        with open(os.path.join(confdir, "special/chats.json")) as f:
             self.chats = json.load(f)
 
         for i in self.command_info.keys():
@@ -98,7 +98,3 @@ class CommandConfig(object):
 
         self.ratelimits = RateLimiter(self.list)
 
-
-class RelationshipConfig(object):
-    def __init__(self, db_config: DatabaseConfig):
-        pass

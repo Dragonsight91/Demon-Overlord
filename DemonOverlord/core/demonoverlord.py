@@ -8,7 +8,6 @@ from DemonOverlord.core.util.config import (
     BotConfig,
     DatabaseConfig,
     APIConfig,
-    RelationshipConfig,
 )
 from DemonOverlord.core.util.command import Command
 
@@ -24,7 +23,6 @@ class DemonOverlord(discord.Client):
         self.commands = CommandConfig(confdir)
         self.database = DatabaseConfig()
         self.api = APIConfig(self.config)
-        self.relationships = RelationshipConfig(self.database)
 
     async def on_ready(self) -> None:
         print("====== CONNECTED SUCCESSFULLY ======")
