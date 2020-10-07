@@ -30,10 +30,10 @@ class DemonOverlord(discord.Client):
         print("====== LOADING EXTRA MODULES ======")
         try:
             self.config.post_connect(self)
-        except Exception as e:
-            print("[WARN] : Izzymojis not loaded")
+        except:
+            print("[WARN] : Post connection setup Done")
         else:
-            print("[MSG]: Loaded Izzymojis")
+            print("[MSG]: Post connection setup failed")
         print("====== STARTUP DONE ======")
 
     async def on_message(self, message: discord.Message) -> None:
