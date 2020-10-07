@@ -1,214 +1,211 @@
 {
     "rules": {
-        "description" : "These are the rules about the Minecraft server.",
-        "logo" : "https://www.pinclipart.com/picdir/big/366-3663697_icon-rules-clipart.png",
-        "list" : [
-            {
-                "name" :"1. Follow the Commandmends of the Discord.",
-                "inline" : false,
-                "description" : "An obvious rule, but it must be stated."
+        "description": "These are the rules about the Minecraft server.",
+        "logo": "https://www.pinclipart.com/picdir/big/366-3663697_icon-rules-clipart.png",
+        "list": [{
+                "name": "1. Follow the Commandmends of the Discord.",
+                "inline": false,
+                "description": "An obvious rule, but it must be stated."
             },
             {
-                "name" : "2. NO GRIEFING.",
-                "inline" : false,
-                "description" : "This is a given, but mentioning it can't hurt small pranks are okay, but destroying other player's stuff IS NOT."
+                "name": "2. NO GRIEFING.",
+                "inline": false,
+                "description": "This is a given, but mentioning it can't hurt small pranks are okay, but destroying other player's stuff IS NOT."
             },
             {
-                "name" : "3. Don't steal",
-                "inline" : false,
-                "description" : "\n**a)** There will be an island dedicated to shops. always pay the price asked\n**b)** Mark your spot, so that everyone can see, where you wanna build\n**c)** If a spot is markked, DO NOT claim it as yours. this counts as stealing.\n**d)**don't get too close to other people's spots. leave them some space to expand their space later on."
+                "name": "3. Don't steal",
+                "inline": false,
+                "description": "\n**a)** There will be an island dedicated to shops. always pay the price asked\n**b)** Mark your spot, so that everyone can see, where you wanna build\n**c)** If a spot is markked, DO NOT claim it as yours. this counts as stealing.\n**d)**don't get too close to other people's spots. leave them some space to expand their space later on."
             },
             {
-                "name" : "4. Only use mods that are specifically allowed",
-                "inline" : false,
-                "description" : "Check `-mao minecraft mods` for more info"
+                "name": "4. Only use mods that are specifically allowed",
+                "inline": false,
+                "description": "Check `-mao minecraft mods` for more info"
             },
             {
-                "name" : "NO HACKING",
-                "inline" : false,
-                "description" : "If you're caught hacking, you will be banned immediately and without warnings."
+                "name": "NO HACKING",
+                "inline": false,
+                "description": "If you're caught hacking, you will be banned immediately and without warnings."
             },
             {
-                "name" : "6. NO BASE BUILDING IN PUBLIC AREAS",
-                "inline" : false,
-                "description" : "**a)** The shopping districts is for building shops and only that.\n**b)** shops belong to their respective owners\n**c)** A proper spawn building can be built at spawn, but will be considered public property"
+                "name": "6. NO BASE BUILDING IN PUBLIC AREAS",
+                "inline": false,
+                "description": "**a)** The shopping districts is for building shops and only that.\n**b)** shops belong to their respective owners\n**c)** A proper spawn building can be built at spawn, but will be considered public property"
             },
             {
-                "name" : "7. Discord members only.",
-                "inline" : false,
-                "description" : " Only people who are on this server are allowed to be on the minecraft server."
+                "name": "7. Discord members only.",
+                "inline": false,
+                "description": " Only people who are on this server are allowed to be on the minecraft server."
             },
             {
-                "name" : "==== Warning Policy ====",
-                "inline" : false,
-                "description" : "Each time you go against the rules, you will be warned.\nThe third warning will result in a 24h ban\nif after that you are warned again, the ban will be permanent\n\n**a)** Anyone who is found out to be hacking will receive 4 warnings and thus a permanent ban.\n**b)** Stealing counts as 2 Warnings\n**c)** Anything other violation of the rules is 1 warning"
+                "name": "==== Warning Policy ====",
+                "inline": false,
+                "description": "Each time you go against the rules, you will be warned.\nThe third warning will result in a 24h ban\nif after that you are warned again, the ban will be permanent\n\n**a)** Anyone who is found out to be hacking will receive 4 warnings and thus a permanent ban.\n**b)** Stealing counts as 2 Warnings\n**c)** Anything other violation of the rules is 1 warning"
             }
         ]
     },
-    "info" : {
-        "description" : "This is all general info about the server.",
-        "logo" : "https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/93/Grass_Block_JE7_BE6.png/revision/latest?cb=20200830143209",
-        "list" : [
-            {
-                "name" : "Address:",
-                "inline" : true,
-                "description" : "mc.the-inner-demons.net"
+    "info": {
+        "description": "This is all general info about the server.",
+        "logo": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/93/Grass_Block_JE7_BE6.png/revision/latest?cb=20200830143209",
+        "list": [{
+                "name": "Address:",
+                "inline": true,
+                "description": "mc.the-inner-demons.net"
             },
             {
-                "name" : "Version:",
-                "inline" : true,
-                "description" : "__Java Edition__ 1.16.3"
+                "name": "Version:",
+                "inline": true,
+                "description": "__Java Edition__ 1.16.3"
             },
             {
-                "name" : "Seed:",
-                "inline" : true,
-                "description" : "The seed for the world is `374856527718160`."
+                "name": "Seed:",
+                "inline": true,
+                "description": "The seed for the world is `374856527718160`."
             },
             {
-                "name" : "Staff:",
-                "inline" : false,
-                "description" : "<@436969756935979008>\n<@338994209757331456>\n<@172172353453686784> "
+                "name": "Staff:",
+                "inline": false,
+                "description": "<@436969756935979008>\n<@338994209757331456>\n<@172172353453686784> "
             },
             {
-                "name" : "Where is everyone?",
-                "inline" : false,
-                "description" : "We have a portal list, if you need to find someone's portal, just look there. You can also add your own overworld portal.\nhttps://docs.google.com/spreadsheets/d/1EcKgwf5t9CxYZRL36DwciyyF7kc5oYAHg6imtGswk40/edit?usp=sharing"
+                "name": "Where is everyone?",
+                "inline": false,
+                "description": "We have a portal list, if you need to find someone's portal, just look there. You can also add your own overworld portal.\nhttps://docs.google.com/spreadsheets/d/1EcKgwf5t9CxYZRL36DwciyyF7kc5oYAHg6imtGswk40/edit?usp=sharing"
             },
             {
-                "name" : "Can I join?",
-                "inline" : false,
-                "description" : "Yes, you can join. Just be aware that you need to tell one of the staff members, because they have to add you to the whitelist. Please do read the info provided by the bot, since we can't and won't answer every question (especially if it has an answer here)"
+                "name": "Can I join?",
+                "inline": false,
+                "description": "Yes, you can join. Just be aware that you need to tell one of the staff members, because they have to add you to the whitelist. Please do read the info provided by the bot, since we can't and won't answer every question (especially if it has an answer here)"
             },
             {
-                "name" : "Is there a Map?",
-                "inline" : false,
-                "description" : "If you wish to look at the map and find a biome to settle in, you can use this:\nhttps://www.chunkbase.com/apps/biome-finder#374856527718160\n\n Alternatively there is a pinned message in <#697101087475367996> with the map and areas that have been claimed by players."
+                "name": "Is there a Map?",
+                "inline": false,
+                "description": "If you wish to look at the map and find a biome to settle in, you can use this:\nhttps://www.chunkbase.com/apps/biome-finder#374856527718160\n\n Alternatively there is a pinned message in <#697101087475367996> with the map and areas that have been claimed by players."
             },
             {
-                "name" : "I wanna support the MC server, how do i do that?",
-                "inline" : false,
-                "description" : "You can donate to my patreon, all funds will be used for the maintenance cost of the MC server.\nhttps://www.patreon.com/dragonsight91"
+                "name": "I wanna support the MC server, how do i do that?",
+                "inline": false,
+                "description": "You can donate to my patreon, all funds will be used for the maintenance cost of the MC server.\nhttps://www.patreon.com/dragonsight91"
             }
-            
+
         ]
     },
     "mods": {
-        "description" : "These are the client side mods that are allowed on the server. All of these use the Fabric Launcher, available at https://fabricmc.net/",
-        "logo" : "https://fabricmc.net/assets/logo.png", 
-        "list" : [
-            {
-                "name" : "Light overlay",
-                "inline" : false,
-                "description" : "shows the light level as cross on the ground.\nhttps://www.curseforge.com/minecraft/mc-mods/light-overlay"
+        "description": "These are the client side mods that are allowed on the server. All of these use the Fabric Launcher, available at https://fabricmc.net/",
+        "logo": "https://fabricmc.net/assets/logo.png",
+        "list": [{
+                "name": "Light overlay",
+                "inline": false,
+                "description": "shows the light level as cross on the ground.\nhttps://www.curseforge.com/minecraft/mc-mods/light-overlay"
             },
             {
-                "name" : "Shulkerbox Tooltip",
-                "inline" : false,
-                "description" : "Shows a small tooltip, letting you look into a shulkerbox in your inventory\nhttps://www.curseforge.com/minecraft/mc-mods/shulkerboxtooltip/"
+                "name": "Shulkerbox Tooltip",
+                "inline": false,
+                "description": "Shows a small tooltip, letting you look into a shulkerbox in your inventory\nhttps://www.curseforge.com/minecraft/mc-mods/shulkerboxtooltip/"
             },
             {
-                "name" : "OptiFine & Shaders",
-                "inline" : false,
-                "description" : "Improves performance and changes visuals.\nhttps://www.optifine.net"
+                "name": "OptiFine & Shaders",
+                "inline": false,
+                "description": "Improves performance and changes visuals.\nhttps://www.optifine.net"
             },
             {
-                "name" : "Litematica",
-                "inline" : false,
-                "description" : "Lets you have a schematic within the game\nhttps://www.curseforge.com/minecraft/mc-mods/litematica"
+                "name": "Litematica",
+                "inline": false,
+                "description": "Lets you have a schematic within the game\nhttps://www.curseforge.com/minecraft/mc-mods/litematica"
             },
             {
-                "name" : "Mod Menu",
-                "inline" : false,
-                "description" :"Lets you easily configure installed mods\nhttps://www.curseforge.com/minecraft/mc-mods/modmenu"
+                "name": "Mod Menu",
+                "inline": false,
+                "description": "Lets you easily configure installed mods\nhttps://www.curseforge.com/minecraft/mc-mods/modmenu"
             },
             {
-                "name" : "Fabric API",
-                "inline" : false,
-                "description" : "Needed to run most mods on Fabric\nhttps://www.curseforge.com/minecraft/mc-mods/fabric-api"
+                "name": "Fabric API",
+                "inline": false,
+                "description": "Needed to run most mods on Fabric\nhttps://www.curseforge.com/minecraft/mc-mods/fabric-api"
             },
             {
-                "name" : "MaLiLib",
-                "inline" : false,
-                "description" : "A library mod needed for Litematica\nhttps://www.curseforge.com/minecraft/mc-mods/malilib"
+                "name": "MaLiLib",
+                "inline": false,
+                "description": "A library mod needed for Litematica\nhttps://www.curseforge.com/minecraft/mc-mods/malilib"
             },
             {
-                "name" : "OptiFabric",
-                "inline" : false,
-                "description" : "Needed to run Optifine on Fabric\nhttps://www.curseforge.com/minecraft/mc-mods/optifabric/"
+                "name": "OptiFabric",
+                "inline": false,
+                "description": "Needed to run Optifine on Fabric\nhttps://www.curseforge.com/minecraft/mc-mods/optifabric/"
             }
         ]
     },
     "datapacks": {
         "description": "These are all the datapacks currently installed on and used by the server. These are not mods.",
-        "logo" : "https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/93/Grass_Block_JE7_BE6.png/revision/latest?cb=20200830143209",
+        "logo": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/93/Grass_Block_JE7_BE6.png/revision/latest?cb=20200830143209",
         "list": [{
                 "name": "No Enderman Grief",
-                "inline" : false,
+                "inline": false,
                 "description": "Endermen stop stealing random dirt blocks. This would otherwise mess up terraformed landscapes, which are lots of effort to create."
             },
             {
                 "name": "AFK Display",
-                "inline" : false,
+                "inline": false,
                 "description": "Greys out afk player's names. If you hold tab and you see a grey name or someone's name is grey in chat, they are or have been afk"
             },
             {
                 "name": "Armor Statues",
-                "inline" : false,
+                "inline": false,
                 "description": "This gives you a book with which you can change the pose and apppearance of armor stands. It's for decorational purposes.\nThere is a big bedrock block at spawn, just put a button on that and press it to get the book."
             },
             {
                 "name": "Double Shulker Shells",
-                "inline" : true,
+                "inline": true,
                 "description": "To minimize end exploration (for the sake of lag) shulkers will always drop 2 shells."
             },
             {
                 "name": "Dragon Drops",
-                "inline" : true,
+                "inline": true,
                 "description": "Killing the ender dragon will immediately reward the player with an elytra and a dragon egg drop"
             },
             {
                 "name": "More Mob Heads",
-                "inline" : true,
+                "inline": true,
                 "description": "Adds a chance to receive any mob head upon killing that mob."
             },
             {
                 "name": "Player Head Drops",
-                "inline" : true,
+                "inline": true,
                 "description": "Adds a chance to receive any mob head upon killing that mob."
             },
             {
                 "name": "Multiplayer Sleep",
-                "inline" : true,
+                "inline": true,
                 "description": "this makes it so that only one player has to sleep to skip the night (i slightly modified it so it doesn't also make it rain)"
             },
             {
                 "name": "Silence Mobs",
-                "inline" : true,
+                "inline": true,
                 "description": "Rename a mob it to \"silence me\" (without quotes) and it will not make a sound anymore (after this, you can rename it to whatever, it'll stay silent)"
             },
             {
                 "name": "Thunder Shrine",
-                "inline" : true,
+                "inline": true,
                 "description": "You need a thunderstorm? offer a nether star to this shrine and make it so. (will be built in the shopping district)"
             },
             {
                 "name": "Wandering Trades",
-                "inline" : true,
+                "inline": true,
                 "description": "This adds blockheads, mobheads and playerheads for the wandering trader to sell."
             },
             {
                 "name": "Login Message",
-                "inline" : true,
+                "inline": true,
                 "description": "This gives you the rules on first login, you can also read them again, by doing `/trigger rules`"
             },
             {
                 "name": "Limited Spectator Mode",
-                "inline" : true,
+                "inline": true,
                 "description": "This allows any player to use spectator mode. You cannot get more than 60 blocks away from the point you started it and you'll be teleported back to that position when you deactiivate it\nTo use:\nActivate: `/trigger sp_on`\nDeactivate:`/trigger sp_off` "
             },
             {
                 "name": "Universal Dyeing",
-                "inline" : true,
+                "inline": true,
                 "description": "You need a dyed block, but your white blocks are gone?\nFear not, because this makes it easier to dye things, by making any block of the same type (terracotta, wool, etc) dyeable into any other."
             }
         ]

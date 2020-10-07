@@ -15,6 +15,8 @@ import DemonOverlord.core.modules as cmds
 
 class Command(object):
     def __init__(self, bot: discord.Client, message: discord.message):
+
+        # initialize all properties
         self.invoked_by = message.author
         self.mentions = message.mentions
         self.action = None
@@ -27,8 +29,7 @@ class Command(object):
 
         # create the command
         to_filter = ["", " ", None]
-        temp = list(filter(lambda x: not x in to_filter,
-                           message.content.split(" ")))
+        temp = list(filter(lambda x: not x in to_filter, message.content.split(" ")))
         self.prefix = temp[0]
         self.command = temp[1]
         if self.command in bot.commands.short:
@@ -66,13 +67,15 @@ class Command(object):
             try:
                 if (self.command in dir(cmds)) and (not self.short):
                     limit = self.bot.commands.ratelimits.exec(self)
+
+                    # see if limiter is active, if not, execute the command
                     if not limit["isActive"]:
                         response = await getattr(cmds, self.command).handler(self)
                     else:
                         # rate limit error
                         response = RateLimitResponse(self, limit["timeRemain"])
                 elif self.short:
-                    return # shorthand commands are handled by their respective module. e.g. minesweeper
+                    return  # shorthand commands are handled by their respective module. e.g. minesweeper
 
                 else:
                     response = BadCommandResponse(self)

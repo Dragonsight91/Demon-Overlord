@@ -1,6 +1,5 @@
 {
-    "art": [
-        {
+    "art": [{
             "name": "The Overlord's Art Account",
             "link": "https://www.instagram.com/theizzypeasy/"
         },
@@ -9,8 +8,7 @@
             "link": "https://www.instagram.com/theizzycomics"
         }
     ],
-    "social": [
-        {
+    "social": [{
             "name": "Izzy's unholy Facebook",
             "link": "https://www.facebook.com/theizzypeasy"
         },
@@ -23,8 +21,7 @@
             "link": "https://theizzypeasy.tumblr.com/"
         }
     ],
-    "shop": [
-        {
+    "shop": [{
             "name": "INTERNATIONAL GREATNESS",
             "link": "http://theizzypeasy.ecwid.com/"
         },
@@ -33,28 +30,20 @@
             "link": "https://theizzypeasyph.ecwid.com/"
         }
     ],
-    "website": [
-        {
-            "name": "ALL DA THINGS",
-            "link": "https://theizzypeasy.carrd.co/"
-        }
-    ],
-    "support": [
-        {
-            "name": "Buy a coffee for our overlord",
-            "link": "https://ko-fi.com/theizzypeasy"
-        }
-    ],
-    "stickers": [
-        {
-            "name": "The Telegram Sticker Pack",
-            "link": "https://t.me/addstickers/Izzymojis"
-        }
-    ],
-    "forbidden_fruit": [
-        {
-            "name": "The art of ancient times",
-            "link": "https://www.deviantart.com/theizzypeasy"
-        }
-    ]
+    "website": [{
+        "name": "ALL DA THINGS",
+        "link": "https://theizzypeasy.carrd.co/"
+    }],
+    "support": [{
+        "name": "Buy a coffee for our overlord",
+        "link": "https://ko-fi.com/theizzypeasy"
+    }],
+    "stickers": [{
+        "name": "The Telegram Sticker Pack",
+        "link": "https://t.me/addstickers/Izzymojis"
+    }],
+    "forbidden_fruit": [{
+        "name": "The art of ancient times",
+        "link": "https://www.deviantart.com/theizzypeasy"
+    }]
 }

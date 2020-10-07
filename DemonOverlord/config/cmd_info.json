@@ -140,7 +140,7 @@
                     "description": "Shows the mods that are definitely allowed.",
                     "usage": "mods",
                     "params": []
-                } , {
+                }, {
                     "action": "datapacks",
                     "description": "Shows the datapacks installed on the server",
                     "usage": "datapacks",

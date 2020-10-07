@@ -3,6 +3,9 @@ from time import time
 
 
 class RateLimiter(object):
+    """
+    This class handles initializing and running the rate limiter
+    """
     # create the rate limiter
     def __init__(self, cmd_list: dict):
         self.limits = {}
@@ -75,6 +78,9 @@ class RateLimiter(object):
 
 # rate limit object
 class RateLimit(object):
+    """
+    This class handles limiting and testing the command
+    """
     def __init__(self, limit: int, user_dependent: bool):
         self.limit = limit
         self.user_dependent = user_dependent

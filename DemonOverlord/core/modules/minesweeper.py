@@ -38,6 +38,8 @@ async def handler(command) -> None:
             return False
 
     if command.action == "start":
+
+        # create initial game state
         timestamp = int(time())
         game_won = False
         game_grid = generate_game()
@@ -49,6 +51,8 @@ async def handler(command) -> None:
                 "Minesweeeper", description, get_grid(command.bot, game_grid)
             )
         )
+
+        # the main loop of the game.
         while running and not game_won:
             try:
                 message = await command.bot.wait_for(
@@ -57,7 +61,8 @@ async def handler(command) -> None:
                 # we can assume here, that the message has the correct information, based on msg_test
                 make_command = message.content.split(" ")
                 await message.delete()
-                # flag or reveal a field
+
+                # take the specified action
                 if make_command[2] == "flag":
                     running = game_grid[int(make_command[4]) - 1][
                         int(make_command[3]) - 1
@@ -85,8 +90,9 @@ async def handler(command) -> None:
             except Exception:
                 running = False
                 reason = "The game timed out after 60 seconds, therefore you lost.\nDon't start something you can't end."
-        # have we won? send appropriate response and delete message
         await response.delete()
+
+        # have we won? send appropriate response and delete message
         if game_won:
             return GameWonResponse(
                 "Minesweeper",
@@ -103,6 +109,9 @@ async def handler(command) -> None:
 
 
 def determine_win(game_grid: list) -> bool:
+    """
+    This function determines if the player won.
+    """
     count = 0
     for i in game_grid:
         for j in i:
@@ -116,12 +125,16 @@ def determine_win(game_grid: list) -> bool:
 
 
 def get_grid(bot: discord.Client, game_grid: list) -> str:
+    """
+    This function generates the emoji field that is later shown in the Embed
+    """
     out = ""
     out += bot.config.emoji["minesweeper"]["N"]
     for i in range(1, len(game_grid) + 1):
         out += bot.config.emoji["numbers"][i]
     out += "\n"
 
+    # go trough the grid and place everything with its relevant emoji
     for i in enumerate(game_grid):
         out += bot.config.emoji["numbers"][i[0] + 1]
         for j in i[1]:
@@ -136,8 +149,12 @@ def get_grid(bot: discord.Client, game_grid: list) -> str:
 
 
 def generate_game():
+    """
+    This function generates the initial game grid
+    """
     # the initial list. an empty 10x10 grid.
     game_grid = [[None] * 10 for x in range(0, 10)]
+
     # generate the mines, then the numbers
     game_grid = generate_mines(game_grid)
     game_grid = generate_numbers(game_grid)
@@ -145,16 +162,25 @@ def generate_game():
 
 
 def generate_mines(game_grid: list) -> list:
-    # this will introduce a funny problem, anyone who can tell me what that is?
+    """
+    This function generates the mines on the game grid
+    """
+
+    # go through the game grid and generate 11 bombs at random positions
     for i in range(0, 11):
-        # programmers count from 0, so 10 elements means element 0 to 9
         x = randint(0, len(game_grid) - 1)
         y = randint(0, len(game_grid) - 1)
-        game_grid[y][x] = BombField()  # put the mine at coordinates.
+        game_grid[y][x] = BombField()
+
     return game_grid
 
 
 def generate_numbers(game_field: list) -> list:
+    """
+    This function creates the value and zero fields on the game grid
+    """
+
+    # this creates an ofset range, so the rest of the code knows where it can or can't check
     def make_range(num: int) -> list:
         if num < 1:
             return range(0, 2)
@@ -163,6 +189,7 @@ def generate_numbers(game_field: list) -> list:
         else:
             return range(-1, 2)
 
+    # then we just go through the 2D array and generate the numbers around the bombs
     for y, row in enumerate(game_field):
         for x, field in enumerate(row):
             temp_value = 0
@@ -173,12 +200,17 @@ def generate_numbers(game_field: list) -> list:
                     # we don't have to check our own position
                     coord_y = y + (1 * i)
                     coord_x = x + (1 * j)
-                    if isinstance(game_field[coord_y][coord_x], BombField) and (
-                        coord_x,
-                        coord_y,
-                    ) != (x, y):
+                    if (
+                        isinstance(game_field[coord_y][coord_x], BombField)
+                        and (
+                            coord_x,
+                            coord_y,
+                        )
+                        != (x, y)
+                    ):
                         temp_value += 1
 
+            # if the field isn't a bomb, we can set it
             if field == None:
                 if temp_value == 0:
                     game_field[y][x] = ZeroField()
@@ -197,10 +229,15 @@ def generate_numbers(game_field: list) -> list:
                     coord_x = x + (1 * j)
                     if (coord_x, coord_y) != (x, y):
                         field.neighbors.append(game_field[coord_y][coord_x])
+
     return game_field
 
 
 class ValueField:
+    """
+    This represents a game field with a numerical value. it also serves as the base for all other classes.
+    """
+
     def __init__(self, value: int):
         self.value = value
         # we only need to add it here, because all other fields inherit this property
@@ -214,11 +251,12 @@ class ValueField:
             self.flagged = not self.flagged
         return True
 
+    # overwrite the __str__ function so we can easily generate the string
     def __str__(self):
         if self.flagged:
             return "F"
         elif self.uncovered:
-            return str(self.value) if self.value != None else "B"
+            return str(self.value) if self.value else "B"
 
         else:
             return "X"
@@ -233,6 +271,10 @@ class ValueField:
 
 
 class ZeroField(ValueField):
+    """
+    This represents a Value Fieldd with the value of 0. it also has an overwritten uncover method.
+    """
+
     def __init__(self):
         super().__init__(0)
 
@@ -251,6 +293,10 @@ class ZeroField(ValueField):
 
 
 class BombField(ValueField):
+    """
+    This is a Bomb field in minesweeper. The uncover function is also overwritten.
+    """
+
     def __init__(self):
         super().__init__(None)
         self.triggered = False

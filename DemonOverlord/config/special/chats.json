@@ -1,116 +1,125 @@
 {
-    "important": [
-        {
-            "name": "the commandments",
+    "important": [{
+            "name": "The Commandments",
             "type": "text",
             "id": 663454459971633163,
             "description": "These are our unholy commandments, given to us by ou unholy Overlord, Izzy. Thou shalt follow her command, as it is what keeps us together as a family."
         },
         {
-            "name": "announcements",
+            "name": "Announcements",
             "type": "text",
             "id": 664737308360310814,
             "description": "Listen to the screams of the howler for important news revolving around just about everything. Just don't get too close or he'll eat you."
         },
         {
-            "name": "wall of shame",
+            "name": "Wall Of Shame",
             "type": "text",
             "id": 689352955475918930,
             "description": "This is where your name will be put after commiting a crime against our unholy commandments. Whoever is on this list, we hope they never do it again."
         },
         {
-            "name": "chat description",
+            "name": "Chat Description",
             "type": "text",
             "id": 668544218092011530,
             "description": "You wish to learn about the ways of the beast's words? Read this and you shall be educated about where to speak of what."
         },
         {
-            "name": "roles explanation",
+            "name": "Roles Explanation",
             "type": "text",
             "id": 681646349036552333,
             "description": "This channel holds education on the hierarchy of the overlord. If you're confused about someone's role, thou shalt be educated here."
         },
         {
-            "name": "chat suggestions",
+            "name": "Chat Suggestions",
             "type": "text",
             "id": 663687557023924224,
-            "description": "You have a chat idea and wish to have it implemented? Expose your ideas here and be judged by thy council"
+            "description": "You have a chat idea and wish to have it implemented? Expose your ideas here and be judged by thy council, but be weary, do not have general conversation here."
         },
         {
-            "name": "questions to the council",
+            "name": "Questions To The Council",
             "type": "text",
             "id": 684399942625787952,
-            "description": "Pose thine questions to the council and ask about the ways of the beast. Even suggestions for improvements are very welcome."
+            "description": "Pose thine questions to the council and ask about the ways of the beast. Even suggestions for improvements are very welcome, as long as you don't make general conversation here."
         },
         {
-            "name": "vote",
+            "name": "Vote",
             "type": "text",
             "id": 684721374736154649,
             "description": "Democracy to the masses. If there's something we have to decide as a group, this is where we'll put it."
         },
         {
-            "name": "submissions",
+            "name": "Submissions",
             "type": "text",
             "id": 685120599344807978,
             "description": "There's an art contest going on and you wish to submit thy offering? Look no further, for this is where you shall put it."
         }
     ],
-    "demon_speak": [
-        {
-            "name": "speaking in tongues",
+    "demon_speak": [{
+            "name": "Speaking in Tongues",
             "id": 658407339283447869,
             "type": "text",
-            "description": "speak of thyself, speak of thy lord, praise the unholy and anything else. A general place where all demons unite and speak the unspoken."
+            "description": "speak of thyself, speak of thy lord, praise the unholy and anything else. A general place where all demons unite and speak the unspoken, as long as it needs no images."
         },
         {
-            "name": "memes",
+            "name": "Demons Lounge",
+            "id": 731855709855023176,
+            "type": "text",
+            "description": "Speak of thyself, speak of thy lord, praise the unholy and anything else. A general place where all demons unite and speak or even show the unspoken."
+        },
+        {
+            "name": "Memes",
             "id": 658428386355707944,
             "type": "text",
             "description": "You have funny pictures and videos? You have unholy relics from the internet? THIS is the place for you."
         },
         {
-            "name": "ominous visions",
+            "name": "Ominous Visions",
             "id": 658428487450755119,
             "type": "text",
             "description": "You wish to show your every day life to us? maybe you practice witchcraft and have created a new spell? Then this is where it goes, so we can all admire it."
         },
         {
-            "name": "our familiar pictures",
+            "name": "Cult Of The Cosplay",
+            "id": 749834944557088859,
+            "type": "text",
+            "description": "Thou hath disguised in a clever way and are now playing an unholy fictional character? Post it here, so we can see through thine disguise."
+        },
+        {
+            "name": "Our Familiar Pictures",
             "id": 659221085811900416,
             "type": "text",
             "description": "You have a familiar you wish to share pictures of? Wether it's a cat, a dog, a rat, hamster or a dragon, put it here and we will enjoy it together"
         },
         {
-            "name": "spoopy stuff",
+            "name": "Spoopy Stuff",
             "id": 664040102737215529,
             "type": "text",
             "description": "You found a curseth creature in the woods? Maybe it found you? CAREFUL, BEHIND YOU. Welp, whatever it is, if it seems scary, ugly and should not exist, put it here."
         },
         {
-            "name": "political topics",
+            "name": "Political Topics and News",
             "id": 665998289128259584,
             "type": "text",
             "description": "You have a discussion about religion, politics or just a controversial thing in general? Better put it here, so it doesn't spam the main chat. And remember to respect thy neighbor."
         },
         {
-            "name": "demon rescue",
+            "name": "Demon Rescue",
             "id": 685111882914463754,
             "type": "text",
             "description": "We are a big family. We wish to fight with you against the big sad, so please put it here so it may never go unnoticed in the main chat. Wether you need advice, encouragement or just wish to talk, this is where you wanna do it."
         },
         {
-            "name": "demon cuisine",
+            "name": "Demon Cuisine",
             "id": 685298304351076355,
             "type": "text",
             "description": "You cook? you make drinks? you just wanna share your meal? You're welcome to do it here, because this chat is all about the holy thing called FOOD."
         }
     ],
-    "artists_supporting_artists": [
-        {
-            "name": "overlords handiwork",
+    "artists_support": [{
+            "name": "Overlords Handiwork",
             "id": 665997194494607410,
             "type": "text",
-            "description": "The channel that revolves around our unholy demon overlord, Izzy. This is where she links new posts after publishing them."
+            "description": "The channel that revolves around our unholy demon overlord, <@284664696550850562>. This is where she links new posts after publishing them."
         },
         {
             "name": "runes and hieroglyphs",
@@ -131,49 +140,85 @@
             "description": "A chat for all the glorious tutorials and tips to give to your fellow demons and help improve the demonic arts."
         },
         {
-            "name": "fite the algorithm",
+            "name": "Fite The Algorithm",
             "id": 684397105413881879,
             "type": "text",
             "description": "This chat holds information on the glorious instagram algorithm and how you may beat it."
         }
     ],
-    "programmer_demons": [
-        {
-            "name": "programmer hell",
+    "programmer_demons": [{
+            "name": "Programmer Hell",
             "id": 684088661884928040,
             "type": "text",
             "description": "You create magical discord golems for fun? You like to convince machines to automate your tasks?"
         },
         {
-            "name": "bot tester",
-            "id": 684100408700043303,
-            "type": "text",
+            "name": "Bot Tester",
+            "type": "hidden",
             "description": "This is a hidden channel. it's used to test the new features of the unholy golems."
         }
     ],
-    "games": [
-        {
-            "name": "entertainment hell",
+    "entertainment": [{
+            "name": "Entertainment Hell",
             "id": 681679025483415593,
             "type": "text",
             "description": "You wish to speak about the ways of the jester? Look no further, for games, music and all else should be here."
         },
         {
-            "name": "games vc",
+            "name": "Minecraft",
+            "id": 697101087475367996,
+            "type": "text",
+            "description": "You wish to join our local Minecraft server? Or do you just wish to talk about and show us your creations in the game of blocks? Here you are welcome to do so."
+        },
+        {
+            "name": "The Movie/Series Pit",
+            "id": 700999201752088656,
+            "type": "text",
+            "description": "Thou wisheth to speak about pictures that move? Thou shalt cometh here and enjoy the talks."
+        },
+        {
+            "name": "The Pit Of Games",
+            "id": 700605280525877318,
+            "type": "text",
+            "description": "If thou wisheth to speak about the Games of old or the games of modern times, thee shalt talk here."
+        },
+        {
+            "name": "Music Talks",
+            "id": 700764450172567682,
+            "type": "text",
+            "description": "If you wish to share with us, the music you posess (or that which posesses you), come here and we shall listen to it."
+        },
+        {
+            "name": "The Pit Of Tech",
+            "id": 724281452602327091,
+            "type": "text",
+            "description": "Talks about electrical Golems of the modern times and the enslaving of the \"Computer\" shall go in this place."
+        },
+        {
+            "name": "Entertainment Talks",
             "type": "voice",
             "description": "The chat to share thoughts about games and use while gaming. Nothing better than some good mind games featuring the commoners."
         }
     ],
-    "inner_demons": [
+    "inner_demons": [{
+            "name": "Overlord Streams",
+            "type": "voice",
+            "description": "This is where the overlord comes to show us her supreme arts in livestreams."
+        },
         {
             "name": "the summoning circle",
             "type": "voice",
             "description": "If you wish to communicate thine thoughts of all sorts to someone else, this is where thee shalt go. No better way to enjoy time together and get to know the people."
+        },
+        {
+            "name": "Ouija Board",
+            "type": "text",
+            "id": 700216779296866356,
+            "description": "When thine Voice hath faded and you are unable to speak or you are just shy, this is the channel to communicate in."
         }
     ],
-    "demonic_chanting": [
-        {
-            "name": "music",
+    "demonic_chanting": [{
+            "name": "music-bot-commands",
             "type": "text",
             "id": 658745693359439912,
             "description": "You wish to listen to demonic chanting and hymns of the olden ones? Then you should go here and use a bot to get your soul riled up, if you didn't sell it, that is."

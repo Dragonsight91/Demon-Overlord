@@ -23,6 +23,11 @@ async def handler(command):
 
 
 class IzzyLink(TextResponse):
+    """
+    This Represents a Discord Embed and any properties of that embed are active and usable by this class.
+    This class handles deconstructing the data from izzy.json into a proper discord embed
+    """
+
     def __init__(self, command, links: dict):
 
         # initialize the Parent with necessary attributes
@@ -31,7 +36,6 @@ class IzzyLink(TextResponse):
             color=0x784381,
             icon=command.bot.config.izzymojis["izzyyay"],
         )
-        print(f"[MSG]: {command.action}")
 
         if command.action != "forbidden_fruit":
 

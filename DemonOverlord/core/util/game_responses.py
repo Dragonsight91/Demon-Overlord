@@ -5,6 +5,11 @@ from DemonOverlord.core.util.responses import TextResponse
 
 
 class GameResponse(TextResponse):
+    """
+    This Represents a Discord Embed and any properties of that embed are active and usable by this class.
+    This class gives a base for Discord game responses.
+    """
+
     def __init__(
         self, game_title: str, description: str, game_field: str, timestamp: int = 0
     ):
@@ -23,6 +28,11 @@ class GameResponse(TextResponse):
 
 
 class GameWonResponse(TextResponse):
+    """
+    This Represents a Discord Embed and any properties of that embed are active and usable by this class.
+    This class gives a base for Discord game responses if the game was lost.
+    """
+
     def __init__(
         self, game_title: str, win_message: str, game_field, timestamp: int = 0
     ):
@@ -41,6 +51,11 @@ class GameWonResponse(TextResponse):
 
 
 class GameLostResponse(TextResponse):
+    """
+    This Represents a Discord Embed and any properties of that embed are active and usable by this class.
+    This class gives a base for Discord game responses if the game was lost.
+    """
+
     def __init__(self, game_title: str, win_message: str, game_field):
         super().__init__(f"GAME OVER - {game_title}", color=0x646464, icon="☠️")
         self.description = win_message

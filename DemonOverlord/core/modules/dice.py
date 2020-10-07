@@ -14,26 +14,35 @@ async def handler(command) -> discord.Embed:
         or command.action == "d20"
     ):
         return DiceResponse(command)
-    
+
+    # if not, we can just return a badCommand
     else:
         BadCommandResponse(command)
 
 
 class DiceResponse(TextResponse):
+    """
+    This Represents a Discord Embed and any properties of that embed are active and usable by this class.
+    This is a basic class that handles making a small embed to return the result.
+    """
+
     def __init__(self, command):
-        # get the number emoji sequence 
+
+        # get the number emoji sequence
         def get_roll(bot, die: str) -> str:
             out = list()
             for i in die:
                 out.append(bot.config.emoji["numbers"][int(i)])
             return "".join(out)
 
-        title = f"Dice - {command.action.upper()}"
+        # initialize the super class
         super().__init__(
-            title,
+            f"Dice - {command.action.upper()}",
             color=0x2CD5C9,
             icon=":game_die:",
         )
+
+        # set the text
         self.description = get_roll(
             command.bot, str(randint(1, int(command.action[1:])))
         )

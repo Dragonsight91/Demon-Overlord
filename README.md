@@ -1,23 +1,16 @@
 # Demon Overlord
 
-
-
-A discord bot custom built for the use of The InnerDemons discord community 
-
-
-
+A discord bot custom built for the use of The InnerDemons discord community
 
 ## Installation
 
-**THE BOT ONLY WORKS ON PYTHON 3.7+**
+### THE BOT ONLY WORKS ON PYTHON 3.7+
 
 The bot uses three environment variables
 
 - DISCORD_TESTBOT_TOKEN
 - DISCORD_MAIN_TOKEN
 - TENOR_TOKEN
-
-
 
 *NOTE: You only need one of the bot keys.*
 
@@ -28,53 +21,42 @@ To get the bot keys
 3. Go to `Applications` and select the bot you want.
 4. Got to `Bots` copy the `TOKEN` next to the bot icon
 
-
-
 Once you have the bot key, add the environment vatriable.
 
 `export <var_name>=<token_value>`
 
-
-
-The demon overlord automatically installs other requirements when run incase you do not have the required permissons, use 
+The demon overlord automatically installs other requirements when run incase you do not have the required permissons, use
 
 `pip --user install -r requirements.txt`
 
-
 ## Running The Bot
 
-
-
-You can run the bot in two different modes. 
+You can run the bot in two different modes.
 
 ### FOR TESTING
 
-Please only use `testmao` for testing any features. 
+Please only use `testmao` for testing any features.
 
 `python run.py --dev`
 
-
-
 ### FOR DEPLOYMENT
 
-If you're trying to do this and you're reading this, you're doing something very wrong. Don't do it.
-
-Talk to the dev demons.
+If you're trying to do this and you're reading this, you're doing something very wrong. Don't do it. This is a mode reserved exclusively for running it on the server and it uses a different token.
 
 ## The directory structure
 
-```
-`-- DemonOverlord
+```none
+\-- DemonOverlord
    |-- config
    |   |-- cmd_info.json
    |   |-- config.json
-   |   `-- special
-   `-- core
+   |   \-- special
+   \-- core
        |-- modules
-       `-- util
+       \-- util
 ```
 
-All source files concerning the bot are contained within the DemonOverlord directory. anything above that is unimportant and is mostly documentation or setup stuff. Anything below this will be relative to the `DemonOverlord` directory
+All source files concerning the bot are contained within the DemonOverlord directory. anything above that is unimportant and is mostly documentation or setup stuff. Anything below this will be relative to the `DemonOverlord` directory.
 
 ### <u>Config</u>
 

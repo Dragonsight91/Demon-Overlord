@@ -5,6 +5,10 @@ from random import randint
 
 
 class API:
+    """
+    This is the base API class. all APIs inherit from this class, so we have a standardized way to create instances of such
+    """
+
     def __init__(self, apikey: str, name: str, url: str):
         self.apikey = apikey
         self.name = name
@@ -12,7 +16,13 @@ class API:
 
 
 class TenorAPI(API):
+    """
+    This is the Tenor API class, used to interact with Tenor, the GIF service.
+    """
+
     def __init__(self, apikey: str):
+
+        # initialize super class
         super().__init__(apikey, "tenor", "https://api.tenor.com/v1")
 
     async def get_interact(self, name: str) -> str:
@@ -35,8 +45,10 @@ class TenorAPI(API):
 
 
 class InspirobotAPI(API):
+    """
+    This is the Inspirobot API class, which handles all interaction with the inspirobot API.
+    """
 
-    # stuff that happens on first call
     def __init__(self):
         super().__init__("", "inspirobot", "https://inspirobot.me")
 
