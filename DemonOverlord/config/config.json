@@ -14,13 +14,7 @@
         }
     },
     "env_vars": {
-        "db": {
-            "mongodb": [
-                "MONGO_URL",
-                "MONGO_USER",
-                "MONGO_PASS"
-            ]
-        },
+        "db": {},
         "api": {
             "tenor": [
                 "TENOR_TOKEN"
