@@ -7,7 +7,7 @@ services:
         restart: "no"
         environment:
             DISCORD_TESTBOT_TOKEN:
-            DISCORD_MAIN_TOKEN:
+            TENOR_TOKEN:
             POSTGRES_USER:
             POSTGRES_PASSWORD:
         depends_on:
