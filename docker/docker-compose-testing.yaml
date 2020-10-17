@@ -1,0 +1,35 @@
+version: "3.8"
+services: 
+    bot:
+        image: demonoverlord:testing # this is only for testing
+        ports:
+            - "443:443"
+        restart: "no"
+        environment:
+            DISCORD_TESTBOT_TOKEN:
+            DISCORD_MAIN_TOKEN:
+            POSTGRES_USER:
+            POSTGRES_PASSWORD:
+        depends_on:
+            - "postgres"
+    postgres:
+        image: postgres:13.0
+        restart: never
+        ports:
+            - "5432:5432"
+        environment: 
+            POSTGRES_USER:
+            POSTGRES_PASSWORD:
+            POSTGRES_DB: bot
+        volumes: 
+            - ./database-data:/var/lib/postgresql/data
+    adminer:
+        image: adminer
+        restart: "no"
+        ports:
+            - "8080:8080"
+        depends_on:
+            - "postgres"
+
+
+    

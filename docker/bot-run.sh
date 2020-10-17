@@ -1,0 +1,1 @@
+docker-compose -f ~/bot/docker-compose.yaml up 

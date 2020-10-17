@@ -223,7 +223,7 @@ class MusicInteraction(CombineInteraction):
         self.spotify = spotify[0] if len(spotify) > 0 else None
 
         # if the user is listening to something (and discord sees it) then set a text field to reflect that. also ad a url, so the user can open it in spotify.
-        if self.spotify != None:
+        if self.spotify:
             self.description = f"{user.display_name} seems to be listening to music. Click on the title to open it in Spotify."
             self.insert_field_at(
                 0,
