@@ -14,7 +14,13 @@
         }
     },
     "env_vars": {
-        "db": {},
+        "db": {
+            "postgres":[
+                "POSTGRES_USER",
+                "POSTGRES_PASSWORD",
+                "POSTGRES_DB"
+            ]
+        },
         "api": {
             "tenor": [
                 "TENOR_TOKEN"
