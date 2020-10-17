@@ -4,6 +4,8 @@ WORKDIR /bot
 
 COPY requirements.txt .
 
+RUN apt-get update
+RUN apt-get install libpq-dev python3-dev -yq
 RUN pip install -r requirements.txt
 
 EXPOSE 443 50000-65535
@@ -14,8 +16,3 @@ COPY run.py /bot
 CMD ["python3.8", "-u", "run.py", "--prod"]
 
 # you will need additional envvars
-# DISCORD_MAIN_TOKEN
-# DISCORD_TESTBOT_TOKEN
-# TENOR_TOKEN
-# POSTGRES_PASSWORD
-# POSTGRES_USER

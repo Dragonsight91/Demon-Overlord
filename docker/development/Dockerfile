@@ -4,6 +4,8 @@ WORKDIR /bot
 
 COPY requirements.txt .
 
+RUN apt-get update
+RUN apt-get install libpq-dev python3-dev -yq
 RUN pip install -r requirements.txt
 
 EXPOSE 443 50000-65535
