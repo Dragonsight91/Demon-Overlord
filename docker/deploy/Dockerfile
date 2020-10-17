@@ -2,9 +2,9 @@ FROM python:3.8-slim
 
 WORKDIR /bot
 
-COPY ../requirements.txt .
+COPY ./requirements.txt .
 
-RUN pip install -r ../requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 443 50000-65535
 
