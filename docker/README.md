@@ -25,6 +25,8 @@ After that, just run `testing-setup.sh` to set everything up for testing in `~/b
 
 ## Deployment
 
+NOTE: **THIS SHOULD NEVER BE NECESSARY IF YOU ARE JUST DEVELOPING THE BOT !!!**
+
 To really use the Docker containers, these envvars have to be set in the host:
 
 ```bash
