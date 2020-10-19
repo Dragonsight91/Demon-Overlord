@@ -17,7 +17,8 @@
         "db": {
             "postgres":[
                 "POSTGRES_USER",
-                "POSTGRES_PASSWORD"
+                "POSTGRES_PASSWORD",
+                "POSTGRES_URL"
             ]
         },
         "api": {
@@ -25,6 +26,19 @@
                 "TENOR_TOKEN"
             ]
         }
+    },
+    "access" : {
+        "all" : [
+            {
+                "type": "permission",
+                "name": "Admin"
+            },
+            {
+                "type": "role",
+                "name": "Admin",
+                "id": null
+            }
+        ]
     },
     "izzymojis": {
         "izzyangry": 684123588927815710,

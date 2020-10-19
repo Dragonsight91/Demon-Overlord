@@ -1,0 +1,7 @@
+{
+    "command_syntax": "command syntax",
+    "description": "category description",
+    "timeout": 0,
+    "ratelimit": null,
+    "commands": []
+}

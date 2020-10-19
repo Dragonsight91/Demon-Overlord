@@ -1,0 +1,7 @@
+{
+    "command": "command-name",
+    "short": "command shorthand",
+    "syntax": "command-name {action}",
+    "description": "command description",
+    "actions": null
+}

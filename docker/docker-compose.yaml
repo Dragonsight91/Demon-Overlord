@@ -9,6 +9,7 @@ services:
             DISCORD_MAIN_TOKEN:
             DISCORD_TESTBOT_TOKEN:
             TENOR_TOKEN:
+            POSTGRES_URL: "postgres"
             POSTGRES_USER:
             POSTGRES_PASSWORD:
         depends_on:

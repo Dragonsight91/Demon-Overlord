@@ -1,0 +1,6 @@
+{
+    "action": "action-name",
+    "description": "action-description",
+    "usage": "action-name",
+    "params": []
+}
