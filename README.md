@@ -6,28 +6,35 @@ A discord bot custom built for the use of The InnerDemons discord community
 
 ### THE BOT ONLY WORKS ON PYTHON 3.7+
 
-The bot uses three environment variables
+The bot uses five environment variables
 
 - DISCORD_TESTBOT_TOKEN
-- DISCORD_MAIN_TOKEN
 - TENOR_TOKEN
+- POSTGRES_USER
+- POSTGRES_PASSWORD
+- POSTGRES_ADDR (the server address, e.g `localhost:5000`)
+- POSTGRES_DB (the database the bot should use)
 
 *NOTE: You only need one of the bot keys.*
 
 To get the bot keys
 
-1. Ask on programmer-hell to be added to the dev team
+1. Ask on [#programmer-hell](https://discordapp.com/channels/658407338822336554/684088661884928040) on the Discord server to be added to the dev team
 2. Accept the invite
 3. Go to `Applications` and select the bot you want.
 4. Got to `Bots` copy the `TOKEN` next to the bot icon
 
-Once you have the bot key, add the environment vatriable.
+Once you have the bot key, add the environment variable (this is how you do it in linux. For windows instructions, please consult the internet).
 
 `export <var_name>=<token_value>`
 
-The demon overlord automatically installs other requirements when run incase you do not have the required permissons, use
+Before you run it, please make sure you get the necessary dependencies
 
 `pip --user install -r requirements.txt`
+
+After that you will need a local postgreSQL database and set the envvars accordingly.
+
+you can find more info in the [postgres documentation](https://www.postgresql.org/docs/9.3/tutorial-start.html).
 
 ## Running The Bot
 
@@ -58,7 +65,7 @@ If you're trying to do this and you're reading this, you're doing something very
 
 All source files concerning the bot are contained within the DemonOverlord directory. anything above that is unimportant and is mostly documentation or setup stuff. Anything below this will be relative to the `DemonOverlord` directory.
 
-### <u>Config</u>
+### Config
 
 This is the main directory for all the configuration files. These help keep the code cleaner and make simple text changes much easier.
 
@@ -68,7 +75,7 @@ The main config is `config/config.json`, which states all the necessary base con
 
 Anything in the folder `config/special` is command specific info or configuration in the form of JSON files. These specify certain functionality or just text, so they are not hardcoded and keep the code cleaner.
 
-### <u>Core</u>
+### Core
 
 Anything in this folder is the core functionality and code of the bot. it also holds `core/demonoverlord.py` which is the main file that defined the DemonOverlord class. `run.py` in the root directory merely accesses this to create an instance of DemonOverlord.
 
@@ -91,4 +98,4 @@ async def handler(command) -> discord.Embed:
     return res
 ```
 
-The last folder, `core/util` holds core utilities for the bot. In there is the Command class, which gets used in all commands, the responses, config handler and any tool the bot needs to fulfill its task. Any API definitions like Tenor or InspiroBot are also in here. 
+The last folder, `core/util` holds core utilities for the bot. In there is the Command class, which gets used in all commands, the responses, config handler and any tool the bot needs to fulfill its task. Any API definitions like Tenor or InspiroBot are also in here.

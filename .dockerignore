@@ -1,0 +1,8 @@
+docker/
+.gitignore
+Dockerfile-deploy
+.github/
+LICENSE
+runtime.txt
+*.md
+Procfile

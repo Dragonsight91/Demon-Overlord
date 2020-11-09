@@ -15,10 +15,9 @@
     },
     "env_vars": {
         "db": {
-            "mongodb": [
-                "MONGO_URL",
-                "MONGO_USER",
-                "MONGO_PASS"
+            "postgres":[
+                "POSTGRES_USER",
+                "POSTGRES_PASSWORD"
             ]
         },
         "api": {
