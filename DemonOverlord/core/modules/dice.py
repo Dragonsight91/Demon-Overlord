@@ -7,7 +7,8 @@ async def handler(command) -> discord.Embed:
 
     # test if we have one of the defined dice classes
     if (
-        command.action == "d6"
+        command.action == "d4"
+        or command.action == "d6"
         or command.action == "d8"
         or command.action == "d10"
         or command.action == "d12"
