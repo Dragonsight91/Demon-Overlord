@@ -1,0 +1,36 @@
+version: "3.8"
+services: 
+    bot:
+        image: demonoverlord:latest # the image will be on the same device but pushed and built on and from other machines
+        ports:
+            - "443:443"
+        restart: always
+        environment:
+            DISCORD_MAIN_TOKEN:
+            DISCORD_TESTBOT_TOKEN:
+            TENOR_TOKEN:
+            POSTGRES_USER:
+            POSTGRES_PASSWORD:
+        depends_on:
+            - "postgres"
+    postgres:
+        image: postgres:13.0
+        restart: always
+        ports:
+            - "5432:5432"
+        environment: 
+            POSTGRES_USER:
+            POSTGRES_PASSWORD:
+            POSTGRES_DB: bot
+        volumes: 
+            - ~/bot/database-data:/var/lib/postgresql/data
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+        depends_on:
+            - "postgres"
+
+
+    
