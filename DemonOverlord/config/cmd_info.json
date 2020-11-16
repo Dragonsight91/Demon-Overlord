@@ -252,6 +252,12 @@
                     "user_dependent": true
                 },
                 "actions": [{
+                        "action": "d4",
+                        "description": "rolls a dice with 6 sides",
+                        "usage": "d4",
+                        "params": null
+                    },
+                    {
                         "action": "d6",
                         "description": "rolls a dice with 6 sides",
                         "usage": "d6",
