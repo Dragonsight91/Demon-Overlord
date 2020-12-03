@@ -11,6 +11,7 @@ services:
             TENOR_TOKEN:
             POSTGRES_USER:
             POSTGRES_PASSWORD:
+            POSTGRES_SERVER: postgres
         depends_on:
             - "postgres"
     postgres:
@@ -21,7 +22,7 @@ services:
         environment: 
             POSTGRES_USER:
             POSTGRES_PASSWORD:
-            POSTGRES_DB: bot_core
+            POSTGRES_DB:
         volumes: 
             - ~/bot/database-data:/var/lib/postgresql/data
         

@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-
-import errno
-import os
-import subprocess
 import sys
 from DemonOverlord.core.demonoverlord import DemonOverlord
 

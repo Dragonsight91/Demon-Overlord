@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import asyncio
+import psycopg2
 
 from DemonOverlord.core.util.api import TenorAPI, InspirobotAPI
 from DemonOverlord.core.util.limit import RateLimiter
@@ -64,13 +65,36 @@ class APIConfig(object):
 
 class DatabaseConfig(object):
     """
-    This class handles all Database integrations.
+        This class handles all Database integrations and connections as well as setup and testing the database.
     """
 
     def __init__(self):
+        self.db_user = os.environ["POSTGRES_USER"]
+        self.db_pass = os.environ["POSTGRES_PASSWORD"]
+        self.connections = dict()
+
+    def db_test(self):
+        """
+            Test if all databases are connected and set up properly
+        """
+        pass
+        
+    def db_create(self, server_id):
         pass
 
+    def db_connect(self, server_id):
+        connection = psycopg2.connect(
+            user = self.db_user,
+            password = self.db_pass,
+            database = str(server_id)
+        )
+        connection.set_session(autocommit=True)
+        
 
+
+    
+
+    
 class CommandConfig(object):
     """
     This is the Command Config class. It handles all the secondary configurations for specific commands and/or command groups
@@ -86,7 +110,7 @@ class CommandConfig(object):
         self.short = dict()
         self.minecraft = dict()
 
-        with open(os.path.join(confdir, "special/interactions.json")) as f:
+        with open(os.path.join(confdir, "interactions.json")) as f:
             self.interactions = json.load(f)
 
         with open(os.path.join(confdir, "cmd_info.json")) as f:
