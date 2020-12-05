@@ -8,12 +8,11 @@ A discord bot custom built for the use of The InnerDemons discord community
 
 The bot uses five environment variables
 
-- DISCORD_TESTBOT_TOKEN
-- TENOR_TOKEN
-- POSTGRES_USER
-- POSTGRES_PASSWORD
-- POSTGRES_ADDR (the server address, e.g `localhost:5000`)
-- POSTGRES_DB (the database the bot should use)
+- `DISCORD_TESTBOT_TOKEN` OR `DISCORD_MAIN_TOKEN`
+- `TENOR_TOKEN` (an api token for tenor)
+- `POSTGRES_USER` (the postgres bot user)
+- `POSTGRES_PASSWORD` (the password for the postgres bot user)
+- `POSTGRES_ADDR` (the server address, e.g `localhost:5000`)
 
 *NOTE: You only need one of the bot keys.*
 
