@@ -22,7 +22,6 @@ class BotConfig(object):
         self.token = None
         self.env = None
         self.emoji = None
-        self.votes = dict()
 
         # get the raw config.json
         with open(os.path.join(confdir, "config.json")) as f:
@@ -68,9 +67,15 @@ class DatabaseConfig(object):
         This class handles all Database integrations and connections as well as setup and testing the database.
     """
 
-    def __init__(self):
-        self.db_user = os.environ["POSTGRES_USER"]
-        self.db_pass = os.environ["POSTGRES_PASSWORD"]
+    def __init__(self, bot):
+        temp = {}
+        for var in bot.config.env["postgres"]:
+            temp.update({var:os.environ[var]})
+
+        self.db_user = os.environ[bot.config.env["postgres"][0]]
+        self.db_pass = os.environ[bot.config.env["postgres"][1]]
+        self.db_addr = os.environ[bot.config.env["postgres"][2]]
+        self.db_port = os.environ[bot.config.env["postgres"][3]]
         self.connections = dict()
 
     def db_test(self):

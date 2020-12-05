@@ -35,9 +35,9 @@ class DemonOverlord(discord.Client):
         try:
             self.config.post_connect(self)
         except:
-            print("[WARN] : Post connection setup Done")
+            print("[WARN] : Post connection setup Failed")
         else:
-            print("[MSG]: Post connection setup failed")
+            print("[MSG]: Post connection setup Done")
         print("====== STARTUP DONE ======")
 
     async def on_message(self, message: discord.Message) -> None:

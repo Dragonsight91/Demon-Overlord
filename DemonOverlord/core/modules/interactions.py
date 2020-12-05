@@ -11,7 +11,7 @@ async def handler(command) -> discord.Embed:
     combine_interactions = command.bot.commands.interactions["combine"]
 
     # what interaction do we have?
-    if command.action in alone_interactions.keys():
+    if command.action in alone_interactions:
         # get the url from tenor
         url = await command.bot.api.tenor.get_interact(
             f'anime {alone_interactions[command.action]["query"]}'
@@ -56,7 +56,7 @@ async def handler(command) -> discord.Embed:
             mentions = []
 
         # what other type of interaction is this?, just check and try to match
-        if command.action in social_interactions.keys():
+        if command.action in social_interactions:
             # no mentions. not good
             if len(mentions) < 1:
                 return BadCommandResponse(command)
@@ -73,7 +73,7 @@ async def handler(command) -> discord.Embed:
             )
 
         # these are combine interactions, interactions that are capable of alone AND social interaction behavior
-        elif command.action in combine_interactions.keys():
+        elif command.action in combine_interactions:
             url = await command.bot.api.tenor.get_interact(
                 f'anime {combine_interactions[command.action]["query"]}'
             )

@@ -1,0 +1,6 @@
+{
+    "command_syntax": "{command} {action} {params}",
+    "description": "",
+    "timeout": 0,
+    "commands": []
+}

@@ -1,0 +1,11 @@
+{
+    "command": "",
+    "short": null,
+    "syntax": "",
+    "description": "",
+    "ratelimit": {
+        "limit": 0,
+        "user_dependent": true
+    },
+    "actions": []
+}

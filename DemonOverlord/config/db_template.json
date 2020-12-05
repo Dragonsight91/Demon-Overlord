@@ -1,0 +1,98 @@
+{
+    "schemas": [
+        "public",
+        "welcome_messages"
+    ],
+    "tables":[
+        
+        {
+            "table_name": "welcome_core",
+            "table_schema": "welcome_messages",
+            "comment": "The core table to hold stuff regarding welcome messages",
+            "primary_key": "id",
+            "table_space": "pg_default",
+            "columns": [
+                {
+                    "column_name" : "id",
+                    "data_type" : "integer",
+                    "column_default" : null,
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : true
+                },
+                {
+                    "column_name" : "embed_description",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 2000,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_title",
+                    "data_type" : "character varying",
+                    "column_default" : "empty title",
+                    "is_nullable" : false,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_colour",
+                    "data_type" : "integer",
+                    "column_default" : 3553599,
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_image",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_url",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_thumbnail",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_author_name",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_author_url",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_author_img",
+                    "data_type" : "",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                }
+            ]
+        }
+    ]
+}

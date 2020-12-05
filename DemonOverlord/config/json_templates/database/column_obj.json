@@ -1,0 +1,8 @@
+{
+    "column_name" : "",
+    "data_type" : "",
+    "column_default" : null,
+    "is_nullable" : true,
+    "character_maximum_length" : null,
+    "auto_increment" : false
+}
