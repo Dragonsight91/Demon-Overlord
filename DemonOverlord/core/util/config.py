@@ -67,15 +67,16 @@ class DatabaseConfig(object):
         This class handles all Database integrations and connections as well as setup and testing the database.
     """
 
+
     def __init__(self, bot):
         temp = {}
         for var in bot.config.env["postgres"]:
             temp.update({var:os.environ[var]})
 
-        self.db_user = os.environ[bot.config.env["postgres"][0]]
-        self.db_pass = os.environ[bot.config.env["postgres"][1]]
-        self.db_addr = os.environ[bot.config.env["postgres"][2]]
-        self.db_port = os.environ[bot.config.env["postgres"][3]]
+        self.db_user = temp["POSTGRES_USER"]
+        self.db_pass = temp["POSTGRES_PASSWORD"]
+        self.db_addr = temp["POSTGRES_ADDR"]
+        self.db_port = temp["POSTGRES_PORT"]
         self.connections = dict()
 
     def db_test(self):
@@ -91,9 +92,13 @@ class DatabaseConfig(object):
         connection = psycopg2.connect(
             user = self.db_user,
             password = self.db_pass,
+            host = self.db_addr,
+            port = self.db_port,
             database = str(server_id)
         )
         connection.set_session(autocommit=True)
+
+        self.connections[f"{server_id}"] = connection
         
 
 

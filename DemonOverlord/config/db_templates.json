@@ -1,0 +1,60 @@
+[
+    {
+        "table_name" : "ratelimits",
+        "table_columns" : [
+            {
+                "column_name" : "command_id",
+                "data_type" : "bigint",
+                "is_nullable" : false,
+                "column_default" : null,
+                "auto_increment" : false,
+                "max_length" : null
+            },
+            {
+                "column_name" : "command_limit",
+                "data_type" : "integer",
+                "is_nullable" : false,
+                "column_default" : 0,
+                "auto_increment" : false,
+                "max_length" : null
+            }
+        ]
+    },
+    {
+        "table_name" : "welcome_messages",
+        "table_columns" : [
+            {
+                "column_name" : "id",
+                "data_type" : "integer",
+                "is_nullable" : false,
+                "column_default" : null,
+                "auto_increment" : true,
+                "max_length" : null
+            },
+            {
+                "column_name" : "embed",
+                "data_type" : "boolean",
+                "is_nullable" : false,
+                "column_default" : false,
+                "auto_increment" : false,
+                "max_length" : null
+            },
+            {
+                "column_name" : "text",
+                "data_type" : "character varying",
+                "is_nullable" : true,
+                "column_default" : null,
+                "auto_increment" : false,
+                "max_length" : 2000
+            },
+            {
+                "column_name" : "embed_title",
+                "data_type" : "character varying",
+                "is_nullable" : true,
+                "column_default" : null,
+                "auto_increment" : false,
+                "max_length" : 256
+            }
+        ]
+    }
+]
