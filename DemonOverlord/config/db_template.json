@@ -89,7 +89,23 @@
                     "data_type" : "character varying",
                     "column_default" : null,
                     "is_nullable" : true,
-                    "character_maximum_length" : null,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_footer_text",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },
+                {
+                    "column_name" : "embed_footer_img",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : true,
+                    "character_maximum_length" : 256,
                     "auto_increment" : false
                 }
             ]
