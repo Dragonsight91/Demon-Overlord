@@ -86,7 +86,7 @@
                 },
                 {
                     "column_name" : "embed_author_img",
-                    "data_type" : "",
+                    "data_type" : "character varying",
                     "column_default" : null,
                     "is_nullable" : true,
                     "character_maximum_length" : null,
