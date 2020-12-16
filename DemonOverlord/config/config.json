@@ -15,7 +15,7 @@
     },
     "env_vars": {
         "db": {
-            "postgres":[
+            "postgres": [
                 "POSTGRES_USER",
                 "POSTGRES_PASSWORD",
                 "POSTGRES_ADDR",
@@ -79,5 +79,30 @@
             "X": "🅾️",
             "N": "⬛"
         }
-    }
+    },
+    "status_messages": [{
+        "type": "playing",
+        "content": "with fire."
+    }, {
+        "type": "playing",
+        "content": "with blood."
+    }, {
+        "type": "playing",
+        "content": "Vecter on steam."
+    }, {
+        "type": "playing",
+        "content": "in the torture chamber."
+    }, {
+        "type": "watching",
+        "content": "you in your sleep."
+    }, {
+        "type": "watching",
+        "content": "the guilty burn."
+    }, {
+        "type": "watching",
+        "content": "the pot until it boils."
+    }, {
+        "type": "listening",
+        "content": "to the screams of the damned."
+    }]
 }

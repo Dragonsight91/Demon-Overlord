@@ -2,6 +2,7 @@ import discord
 
 
 from DemonOverlord.core.util.responses import ImageResponse, BadCommandResponse
+from DemonOverlord.core.util.logger import LogCommand, LogMessage, LogHeader
 
 
 async def handler(command) -> discord.Embed:
@@ -210,12 +211,12 @@ class MusicInteraction(CombineInteraction):
         bot: discord.Client,
         interaction_type: dict,
         user: discord.Member,
+        activities,
         mentions: list,
         url: str,
     ):
         # initialize the super class
         super().__init__(bot, interaction_type, user, mentions, url, color=0x1DB954)
-
         # get the spotify action
         spotify = list(
             filter(lambda x: isinstance(x, discord.Spotify), user.activities)
@@ -245,6 +246,7 @@ class GameInteraction(CombineInteraction):
         bot: discord.Client,
         interaction_type: dict,
         user: discord.Member,
+        activities,
         mentions: list,
         url: str,
     ):

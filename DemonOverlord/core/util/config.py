@@ -22,6 +22,7 @@ class BotConfig(object):
         self.token = None
         self.env = None
         self.emoji = None
+        self.status_messages = list()
 
         # get the raw config.json
         with open(os.path.join(confdir, "config.json")) as f:
@@ -35,6 +36,18 @@ class BotConfig(object):
                 self.mode = self.raw["cli_options"]["bot_modes"][argv[1]]
             else:
                 self.raw["cli_options"]["bot_modes"]["--prod"]
+
+        status_types = {
+            "playing": discord.ActivityType.playing,
+            "streaming": discord.ActivityType.streaming,  # not used
+            "listening": discord.ActivityType.listening,
+            "watching": discord.ActivityType.watching,
+        }
+        for message in self.raw["status_messages"]:
+            
+            self.status_messages.append(
+                discord.Activity(name=message["content"], type=status_types[message["type"]])
+            )
 
         # set the token
         self.token = os.environ.get(self.mode["tokenvar"])
@@ -64,14 +77,13 @@ class APIConfig(object):
 
 class DatabaseConfig(object):
     """
-        This class handles all Database integrations and connections as well as setup and testing the database.
+    This class handles all Database integrations and connections as well as setup and testing the database.
     """
 
-
-    def __init__(self, bot):
+    def __init__(self, bot, confdir):
         temp = {}
-        for var in bot.config.env["postgres"]:
-            temp.update({var:os.environ[var]})
+        for var in bot.config.env["db"]["postgres"]:
+            temp.update({var: os.environ[var]})
 
         self.db_user = temp["POSTGRES_USER"]
         self.db_pass = temp["POSTGRES_PASSWORD"]
@@ -81,30 +93,26 @@ class DatabaseConfig(object):
 
     def db_test(self):
         """
-            Test if all databases are connected and set up properly
+        Test if all databases are connected and set up properly
         """
         pass
-        
+
     def db_create(self, server_id):
         pass
 
     def db_connect(self, server_id):
         connection = psycopg2.connect(
-            user = self.db_user,
-            password = self.db_pass,
-            host = self.db_addr,
-            port = self.db_port,
-            database = str(server_id)
+            user=self.db_user,
+            password=self.db_pass,
+            host=self.db_addr,
+            port=self.db_port,
+            database=str(server_id),
         )
         connection.set_session(autocommit=True)
 
         self.connections[f"{server_id}"] = connection
-        
 
 
-    
-
-    
 class CommandConfig(object):
     """
     This is the Command Config class. It handles all the secondary configurations for specific commands and/or command groups

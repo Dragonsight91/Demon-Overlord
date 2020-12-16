@@ -10,8 +10,8 @@ from inspect import getmembers
 import discord
 import pkgutil
 import traceback
+import asyncio
 import DemonOverlord.core.modules as cmds
-
 
 class Command(object):
     def __init__(self, bot: discord.Client, message: discord.message):
@@ -19,6 +19,7 @@ class Command(object):
         # initialize all properties
         self.invoked_by = message.author
         self.mentions = message.mentions
+        self.guild = message.guild
         self.action = None
         self.bot = bot
         self.channel = message.channel
@@ -79,7 +80,7 @@ class Command(object):
 
                 else:
                     response = BadCommandResponse(self)
-            except:
+            except Exception:
                 response = ErrorResponse(self, traceback.format_exc())
 
             # Send the message
@@ -96,8 +97,5 @@ class Command(object):
                     dev_channel = message.guild.get_channel(684100408700043303)
                     await dev_channel.send(embed=response)
             await self.message.delete()
-        except:
+        except Exception:
             pass  # we don't have to do anything, we just don't want an error message that we expect anyways
-
-    async def rand_status(self) -> discord.BaseActivity:
-        pass
