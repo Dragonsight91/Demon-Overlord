@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-from DemonOverlord.core.util.logger import TermFormat, LogMessage
+from DemonOverlord.core.util.logger import LogFormat, LogMessage
 
 
 try:
@@ -11,8 +11,8 @@ except (ImportError):
     missing_module = True
     print(
         LogMessage(
-            f"not all dependencies seem to be installed, please run {TermFormat.format('pip install -Ur requirements.txt', TermFormat.BOLD)}",
-            prefix=f"{TermFormat.format('ERROR', TermFormat.FAIL)}",
+            f"not all dependencies seem to be installed, please run {LogFormat.format('pip install -Ur requirements.txt', LogFormat.BOLD)}",
+            prefix=f"{LogFormat.format('ERROR', LogFormat.FAIL)}",
             time=False,
         )
     )

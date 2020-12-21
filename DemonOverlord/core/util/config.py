@@ -35,18 +35,25 @@ class BotConfig(object):
             if arg in self.raw["cli_options"]["bot_modes"]:
                 self.mode = self.raw["cli_options"]["bot_modes"][argv[1]]
             else:
-                self.raw["cli_options"]["bot_modes"]["--prod"]
+                self.mode = self.raw["cli_options"]["bot_modes"]["--dev"]
+
+            
 
         status_types = {
             "playing": discord.ActivityType.playing,
             "streaming": discord.ActivityType.streaming,  # not used
             "listening": discord.ActivityType.listening,
             "watching": discord.ActivityType.watching,
+            "competing": discord.ActivityType.competing
         }
         for message in self.raw["status_messages"]:
             
             self.status_messages.append(
-                discord.Activity(name=message["content"], type=status_types[message["type"]])
+                discord.Activity(
+                    name=message["content"], 
+                    type=status_types[message["type"]], 
+                    url=("https://www.youtube.com/watch?v=dBRSjTKdtrI" if "Vecter" in message["content"] else None)
+                )
             )
 
         # set the token
@@ -70,7 +77,7 @@ class APIConfig(object):
         self.tenor = None
         self.inspirobot = InspirobotAPI()
 
-        tenor_key = os.environ.get(config.env["api"]["tenor"][0])
+        tenor_key = os.environ.get(config.env["tenor"][0])
         if tenor_key:
             self.tenor = TenorAPI(tenor_key)
 
@@ -82,35 +89,34 @@ class DatabaseConfig(object):
 
     def __init__(self, bot, confdir):
         temp = {}
-        for var in bot.config.env["db"]["postgres"]:
+        for var in bot.config.env["postgres"]:
             temp.update({var: os.environ[var]})
 
         self.db_user = temp["POSTGRES_USER"]
         self.db_pass = temp["POSTGRES_PASSWORD"]
-        self.db_addr = temp["POSTGRES_ADDR"]
+        self.db_addr = temp["POSTGRES_SERVER"]
         self.db_port = temp["POSTGRES_PORT"]
-        self.connections = dict()
+        self.connection = None
 
-    def db_test(self):
+    async def db_test(self):
         """
         Test if all databases are connected and set up properly
         """
         pass
 
-    def db_create(self, server_id):
+    async def db_create(self, server_id):
         pass
 
-    def db_connect(self, server_id):
-        connection = psycopg2.connect(
+    async def db_connect(self):
+        self.connection = psycopg2.connect(
             user=self.db_user,
             password=self.db_pass,
             host=self.db_addr,
             port=self.db_port,
-            database=str(server_id),
+            database="bot_core",
         )
         connection.set_session(autocommit=True)
 
-        self.connections[f"{server_id}"] = connection
 
 
 class CommandConfig(object):

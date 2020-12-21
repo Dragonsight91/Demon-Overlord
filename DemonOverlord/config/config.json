@@ -14,19 +14,16 @@
         }
     },
     "env_vars": {
-        "db": {
-            "postgres": [
-                "POSTGRES_USER",
-                "POSTGRES_PASSWORD",
-                "POSTGRES_ADDR",
-                "POSTGRES_PORT"
-            ]
-        },
-        "api": {
-            "tenor": [
-                "TENOR_TOKEN"
-            ]
-        }
+        "postgres": [
+            "POSTGRES_USER",
+            "POSTGRES_PASSWORD",
+            "POSTGRES_SERVER",
+            "POSTGRES_PORT"
+        ],
+        "tenor": [
+            "TENOR_TOKEN"
+
+        ]
     },
     "izzymojis": {
         "izzyangry": 684123588927815710,
@@ -87,8 +84,8 @@
         "type": "playing",
         "content": "with blood."
     }, {
-        "type": "playing",
-        "content": "Vecter on steam."
+        "type": "streaming",
+        "content": "Taranasus' Vecter on steam."
     }, {
         "type": "playing",
         "content": "in the torture chamber."
@@ -104,5 +101,8 @@
     }, {
         "type": "listening",
         "content": "to the screams of the damned."
+    }, {
+        "type": "competing",
+        "content": "with god"
     }]
 }

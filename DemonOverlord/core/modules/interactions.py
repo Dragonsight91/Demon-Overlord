@@ -211,7 +211,6 @@ class MusicInteraction(CombineInteraction):
         bot: discord.Client,
         interaction_type: dict,
         user: discord.Member,
-        activities,
         mentions: list,
         url: str,
     ):
@@ -246,7 +245,6 @@ class GameInteraction(CombineInteraction):
         bot: discord.Client,
         interaction_type: dict,
         user: discord.Member,
-        activities,
         mentions: list,
         url: str,
     ):
