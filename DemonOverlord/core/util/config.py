@@ -98,10 +98,13 @@ class DatabaseConfig(object):
         self.db_port = temp["POSTGRES_PORT"]
         self.connection = None
 
-    async def db_test(self):
+    async def db_test(self, servers):
         """
         Test if all databases are connected and set up properly
         """
+        pass
+
+    async def db_fix(self, server):
         pass
 
     async def db_create(self, server_id):

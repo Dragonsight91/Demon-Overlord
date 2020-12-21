@@ -13,7 +13,7 @@ from DemonOverlord.core.util.config import (
     APIConfig,
 )
 from DemonOverlord.core.util.command import Command
-from DemonOverlord.core.util.logger import LogCommand, LogMessage, LogHeader,LogFormat
+from DemonOverlord.core.util.logger import LogCommand, LogMessage, LogHeader,LogFormat, LogType
 
 class DemonOverlord(discord.Client):
     """
@@ -39,6 +39,8 @@ class DemonOverlord(discord.Client):
 
         try:
             self.database = DatabaseConfig(self, confdir)
+            self.database.db_connect()
+            
             print(LogMessage("Database connection established", time=False))
         except Exception:
             self.local = True
@@ -95,9 +97,11 @@ class DemonOverlord(discord.Client):
         if self.local:
             print(LogMessage("No database configuration, running in local mode, some functions may be limited", msg_type="WARNING", color=LogFormat.WARNING))
         else:
-            pass
-            # self.loop.create_task(self.database.test_servers())
-
+            try:
+                self.loop.create_task(self.database.test_servers())
+            except Exception:
+                print(LogMessage("Something went wrong when testing the database, continuing in local mode", msg_type=LogType.ERROR))
+                self.local = True
         
         print(LogHeader("startup done"))
         self.dispatch("my_event")
