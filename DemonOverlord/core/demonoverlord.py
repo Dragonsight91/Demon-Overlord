@@ -20,17 +20,18 @@ class DemonOverlord(discord.Client):
     This class is the main bot class.
     """
 
-    def __init__(self, argv: list):
+    def __init__(self, argv: list, workdir):
         # initialize properties
         self.config = None
         self.commands = None
         self.database = None
         self.local = False
+        self._db_ready = asyncio.Event()
 
         print(LogHeader("Initializing Bot"))
 
-        workdir = os.path.dirname(os.path.abspath(__file__))
-        confdir = os.path.join(workdir, "../config")
+        
+        confdir = os.path.join(workdir, "config")
         print(LogMessage(f"WORKDIR: {LogFormat.format(workdir, LogFormat.UNDERLINE)}", time=False))
 
         # set the main bot config
@@ -38,14 +39,12 @@ class DemonOverlord(discord.Client):
         self.commands = CommandConfig(confdir)
 
         try:
-            self.database = DatabaseConfig(self, confdir)
-            self.database.db_connect()
-            
+            self.database = DatabaseConfig(self, confdir)            
             print(LogMessage("Database connection established", time=False))
-        except Exception:
+        except Exception as e:
             self.local = True
             print(LogMessage("Database connection not established, running in local mode", msg_type="WARNING", color=LogFormat.WARNING, time=False))
-
+            print(LogMessage(f"{type(e).__name__}: {e}" , msg_type=LogType.ERROR))
         self.api = APIConfig(self.config)
 
         #
@@ -78,6 +77,9 @@ class DemonOverlord(discord.Client):
                 print(LogMessage(f"Set Status \"{LogFormat.format(f'{presence_type} {presence.name}', LogFormat.BOLD)}\""))
 
             await asyncio.sleep(3600)
+    async def wait_until_done(self):
+        await self.wait_until_ready()
+        await self._db_ready.wait()
 
     async def on_ready(self) -> None:
         print(LogHeader("CONNECTED SUCCESSFULLY"))
@@ -93,18 +95,31 @@ class DemonOverlord(discord.Client):
             print(LogMessage("Post Connection config Finished"))
         
         # testing the database
-        print(LogMessage("Testing Data"))
+        print(LogMessage("Testing Database..."))
         if self.local:
             print(LogMessage("No database configuration, running in local mode, some functions may be limited", msg_type="WARNING", color=LogFormat.WARNING))
         else:
             try:
-                self.loop.create_task(self.database.test_servers())
-            except Exception:
-                print(LogMessage("Something went wrong when testing the database, continuing in local mode", msg_type=LogType.ERROR))
+                # test schemas
+                if not await self.database.schema_test():
+                    print(LogMessage("some schemas don't exist, trying to correct...", msg_type=LogType.WARNING))
+                    await self.database.schema_fix()
+
+                # test tables
+                if not await self.database.table_test():
+                    print(LogMessage("Some tables don't exist or are wrong, trying to correct...", msg_type=LogType.WARNING))
+                    await self.database.table_fix()
+
+                # # test data in tables, since certain entries NEED to exist
+                # if not await self.database._data_test(self.guilds):
+                #     self.database._data_test()
+            except Exception as e:
+                print(LogMessage("Something went wrong when testing and/or fixing the database, continuing in local mode", msg_type=LogType.ERROR))
+                print(LogMessage(e, msg_type=LogType.ERROR))
                 self.local = True
         
         print(LogHeader("startup done"))
-        self.dispatch("my_event")
+        self._db_ready.set()
 
 
     async def on_message(self, message: discord.Message) -> None:
@@ -115,7 +130,7 @@ class DemonOverlord(discord.Client):
         ):
 
             async with message.channel.typing():
-                await self.wait_until_ready()
+                await self.wait_until_done()
                 command = Command(self, message)
                 print(LogCommand(command))
                 await command.exec() 

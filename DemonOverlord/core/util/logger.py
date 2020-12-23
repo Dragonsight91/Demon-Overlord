@@ -27,6 +27,7 @@ class LogFormat:
 class LogType:
     """"""
     MESSAGE = f"{LogFormat.format('MESSAGE', LogFormat.OKGREEN)}"
+    COMMAND = f"{LogFormat.format('COMMAND', LogFormat.OKGREEN)}"
     ERROR = f"{LogFormat.format('ERROR', LogFormat.FAIL)}"
     WARNING = f"{LogFormat.format('WARNING', LogFormat.WARNING)}"
 
@@ -86,9 +87,9 @@ class LogHeader(LogMessage):
 
 
 class LogCommand(LogMessage):
-    def __init__(self, command):
-        super().__init__("", msg_type="COMMAND", time=False)
+    def __init__(self, command, time=False):
+        super().__init__("", msg_type=LogType.COMMAND, time=time)
         self.message = f"INCOMING COMMAND"
-        self.message += f"\n{LogFormat.format('COMMAND', LogFormat.UNDERLINE).rjust(len(self.type)+10+(len(str(self.time))+8 if self.time else 0))} : {str(command.command)}"
-        self.message += f"\n{LogFormat.format('ACTION', LogFormat.UNDERLINE).rjust(len(self.type)+10+(len(str(self.time))+8 if self.time else 0)):} : {command.action}"
-        self.message += f"\n{LogFormat.format('PARAMS', LogFormat.UNDERLINE).rjust(len(self.type)+10+(len(str(self.time))+8 if self.time else 0)):} : {str(command.params)}"
+        self.message += f"\n{LogFormat.format('COMMAND', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0))} : {str(command.command)}"
+        self.message += f"\n{LogFormat.format('ACTION', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0)):} : {command.action}"
+        self.message += f"\n{LogFormat.format('PARAMS', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0)):} : {str(command.params)}"

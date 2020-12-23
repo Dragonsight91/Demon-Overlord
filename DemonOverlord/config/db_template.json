@@ -1,174 +1,168 @@
 {
-    "schemas": [
-        "welcome_messages",
+    "schemata": [
         "voting",
         "admin",
-        "limiter",
         "relations"
     ],
-    "tables":[
+    "tables": [
         {
             "table_name": "admin_core",
             "table_schema": "admin",
             "table_space": "pg_default",
             "primary_key": "guild_id",
-            "comment": "the core table holding admin data of all servers",
-            "columns": [
-                {
-                    "column_name" : "guild_id",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "has_welcome",
-                    "data_type" : "boolean",
-                    "column_default" : true,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "has_voting",
-                    "data_type" : "boolean",
-                    "column_default" : true,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                }
-            ]
-        },{
+            "comment": "The core table holding admin data of all servers",
+            "columns": [{
+                "column_name": "guild_id",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": false,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }, {
+                "column_name": "has_welcome",
+                "data_type": "boolean",
+                "column_default": true,
+                "is_nullable": false,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }, {
+                "column_name": "has_voting",
+                "data_type": "boolean",
+                "column_default": true,
+                "is_nullable": false,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }]
+        }, 
+        {
             "table_name": "ratelimits",
             "table_schema": "admin",
             "table_space": "pg_default",
-            "primary_key": null,
-            "comment": null,
-            "columns": [
-                {
-                    "column_name" : "guild_id",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "command_name",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 20,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "limit_to",
-                    "data_type" : "integer",
-                    "column_default" : 0,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                }, {
-                    "column_name" : "per_interval",
-                    "data_type" : "integer",
-                    "column_default" : 0,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                }
-            ]
+            "primary_key": "guild_id",
+            "comment": "The table that holds all custom ratelimits",
+            "columns": [{
+                "column_name": "guild_id",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": false,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }, {
+                "column_name": "command_name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true,
+                "character_maximum_length": 20,
+                "auto_increment": false
+            }, {
+                "column_name": "limit_to",
+                "data_type": "integer",
+                "column_default": 0,
+                "is_nullable": false,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }, {
+                "column_name": "per_interval",
+                "data_type": "integer",
+                "column_default": 0,
+                "is_nullable": true,
+                "character_maximum_length": null,
+                "auto_increment": false
+            }]
         },
         {
-            "table_name": "admin",
-            "table_schema": "welcome_messages",
+            "table_name": "welcome_messages",
+            "table_schema": "admin",
             "comment": "The core table to hold stuff regarding welcome messages",
-            "primary_key": "id",
+            "primary_key": "guild_id",
             "table_space": "pg_default",
-            "columns": [
-                {
-                    "column_name" : "guild_id",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
+            "columns": [{
+                    "column_name": "guild_id",
+                    "data_type": "integer",
+                    "column_default": null,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_description",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 2000,
-                    "auto_increment" : false
+                    "column_name": "embed_description",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 2000,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_title",
-                    "data_type" : "character varying",
-                    "column_default" : "empty title",
-                    "is_nullable" : false,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_title",
+                    "data_type": "character varying",
+                    "column_default": "empty title",
+                    "is_nullable": false,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_colour",
-                    "data_type" : "integer",
-                    "column_default" : 3553599,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
+                    "column_name": "embed_colour",
+                    "data_type": "integer",
+                    "column_default": 3553599,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_image",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_image",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_thumbnail",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_thumbnail",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_author_name",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_author_name",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_author_url",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_author_url",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_author_img",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_author_img",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_footer_text",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_footer_text",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "embed_footer_img",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 256,
-                    "auto_increment" : false
+                    "column_name": "embed_footer_img",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 256,
+                    "auto_increment": false
                 }
             ]
         },
@@ -178,37 +172,35 @@
             "table_space": "pg_default",
             "primary_key": "vote_id",
             "comment": "The core table for voting related actions. the main data of the vote is saved here",
-            "columns": [
-                {
-                    "column_name" : "vote_id",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
+            "columns": [{
+                    "column_name": "vote_id",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "guild_id",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "timestamp",
-                    "data_type" : "integer",
-                    "column_default" : 0,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                }
-                ,{
-                    "column_name" : "vote_desc",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 2000,
-                    "auto_increment" : false
+                    "column_name": "guild_id",
+                    "data_type": "integer",
+                    "column_default": null,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
+                }, {
+                    "column_name": "timestamp",
+                    "data_type": "bigint",
+                    "column_default": 0,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
+                }, {
+                    "column_name": "vote_desc",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 2000,
+                    "auto_increment": false
                 }
             ]
         },
@@ -218,43 +210,42 @@
             "table_space": "pg_default",
             "primary_key": "vote_id",
             "comment": null,
-            "columns": [
-                {
-                    "column_name" : "vote_id",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
+            "columns": [{
+                    "column_name": "vote_id",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
                 },
                 {
-                    "column_name" : "guild_id",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : false,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
+                    "column_name": "guild_id",
+                    "data_type": "integer",
+                    "column_default": null,
+                    "is_nullable": false,
+                    "character_maximum_length": null,
+                    "auto_increment": false
                 }, {
-                    "column_name" : "option_idx",
-                    "data_type" : "integer",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : null,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "option_label",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 50,
-                    "auto_increment" : false
-                },{
-                    "column_name" : "option_desc",
-                    "data_type" : "character varying",
-                    "column_default" : null,
-                    "is_nullable" : true,
-                    "character_maximum_length" : 128,
-                    "auto_increment" : false
+                    "column_name": "option_idx",
+                    "data_type": "integer",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": null,
+                    "auto_increment": false
+                }, {
+                    "column_name": "option_label",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 50,
+                    "auto_increment": false
+                }, {
+                    "column_name": "option_desc",
+                    "data_type": "character varying",
+                    "column_default": null,
+                    "is_nullable": true,
+                    "character_maximum_length": 128,
+                    "auto_increment": false
                 }
             ]
         }
