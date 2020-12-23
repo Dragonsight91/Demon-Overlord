@@ -330,7 +330,20 @@ class DatabaseConfig(object):
 
         # some stuff to prepare
         nullable = 'NOT NULL' if not column['is_nullable'] else ''
-        escape_val = f"\'{column['column_default']}\'" if type(column['column_default']) is str else f"{column['column_default']}"
+
+        # escape the actual string
+        if type(column['column_default']) is str:
+            escape_val = f"\'{column['column_default']}\'::character varying"
+        
+        # convert python bool to SQL bool
+        elif type(column['column_default']) is bool:
+            escape_val = str(column['column_default']).upper()
+        
+        # everything else
+        else:
+            escape_val=f"{column['column_default']}"
+
+        nullable = 'NOT NULL' if not column['is_nullable'] else ''
         default = f"DEFAULT {escape_val}"  
 
         # the query
@@ -340,17 +353,21 @@ class DatabaseConfig(object):
     async def _fix_column(self, table_name, schema_name, column):
         """This fixes the table if a column has not been set up properly"""
         cursor = self.connection_main.cursor(cursor_factory = psycopg2.extras.DictCursor)
-
+        # handle maximum legth
+        max_len = f"({column['character_maximum_length']})" if column['character_maximum_length'] else ""
         escape_val = f"\'{column['column_default']}\'" if type(column['column_default']) is str else f"{column['column_default']}"
 
-        cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} TYPE {column['data_type'] if not column['auto_increment'] else 'serial'};")
+        cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} TYPE {column['data_type'] if not column['auto_increment'] else 'serial'}{max_len};")
         
         if column["column_default"]:
             cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} SET DEFAULT {escape_val}")
+        else:
+            cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} DROP DEFAULT ")
 
         if not column['is_nullable']:
             cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} SET NOT NULL")
-
+        else:
+            cursor.execute(f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} DROP NOT NULL")
         cursor.close()
 
     async def schema_fix(self):

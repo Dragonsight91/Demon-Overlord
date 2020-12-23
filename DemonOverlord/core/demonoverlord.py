@@ -101,18 +101,29 @@ class DemonOverlord(discord.Client):
         else:
             try:
                 # test schemas
+                print(LogMessage("Checking Schemas..."))
                 if not await self.database.schema_test():
-                    print(LogMessage("some schemas don't exist, trying to correct...", msg_type=LogType.WARNING))
+                    print(LogMessage("Some schemas don't exist, correcting...", msg_type=LogType.WARNING))
                     await self.database.schema_fix()
+                else:
+                    print(LogMessage("All schemas are in place."))
 
                 # test tables
+                print(LogMessage("Checking Tables..."))
                 if not await self.database.table_test():
-                    print(LogMessage("Some tables don't exist or are wrong, trying to correct...", msg_type=LogType.WARNING))
+                    print(LogMessage("Some tables don't exist or are wrong, correcting...", msg_type=LogType.WARNING))
                     await self.database.table_fix()
+                else:
+                    print(LogMessage("All Tables are in place and seem to be correct."))
 
+                
                 # # test data in tables, since certain entries NEED to exist
+                # print(LogMessage("Checking Table Data"))
                 # if not await self.database._data_test(self.guilds):
+                #     print(LogMessage("Some default data desn't exist, trying to correct...", msg_type=LogType.WARNING))
                 #     self.database._data_test()
+
+                
             except Exception as e:
                 print(LogMessage("Something went wrong when testing and/or fixing the database, continuing in local mode", msg_type=LogType.ERROR))
                 print(LogMessage(e, msg_type=LogType.ERROR))
