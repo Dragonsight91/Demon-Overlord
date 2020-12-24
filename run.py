@@ -2,11 +2,12 @@
 import sys, os
 from DemonOverlord.core.util.logger import LogCommand, LogFormat, LogMessage, LogType
 
-
+# try importing the module and throw an error if can't be imported
 try:
     from DemonOverlord.core.demonoverlord import DemonOverlord
 
     missing_module = False
+
 except (ImportError):
     missing_module = True
     print(
@@ -17,18 +18,25 @@ except (ImportError):
         )
     )
 
+
 def run():
-    workdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "DemonOverlord")
-    bot = DemonOverlord(sys.argv, workdir)
-    bot.loop.create_task(DemonOverlord.change_status(bot))
-    bot.run(bot.config.token) # this will block execution
+    try:
+        # initialize the bot
+        workdir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "DemonOverlord"
+        )
+        bot = DemonOverlord(sys.argv, workdir)
 
+        # inject the status change into the bot main loop
+        bot.loop.create_task(DemonOverlord.change_status(bot))
 
-    # clean up after ourselves
-    print(LogMessage("Bot Stopped, exiting gracefully", msg_type=LogType.WARNING))
-    bot.database.connection_main.close()
-    bot.database.connection_maintenance.close()
-
+        # actually run the bloody thing
+        bot.run(bot.config.token)  # this will block execution from here
+    finally:
+        # clean up after ourselves, when we crash or stop
+        print(LogMessage("Bot Stopped, exiting gracefully", msg_type=LogType.WARNING))
+        bot.database.connection_main.close()
+        bot.database.connection_maintenance.close()
 
 
 if __name__ == "__main__" and not missing_module:

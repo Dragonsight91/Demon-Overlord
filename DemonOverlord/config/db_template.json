@@ -10,6 +10,7 @@
             "table_schema": "admin",
             "table_space": "pg_default",
             "primary_key": "guild_id",
+            "entry_required": true,
             "comment": "The core table holding admin data of all servers",
             "columns": [{
                 "column_name": "guild_id",
@@ -39,6 +40,7 @@
             "table_schema": "admin",
             "table_space": "pg_default",
             "primary_key": "guild_id",
+            "entry_required": true,
             "comment": "The table that holds all custom ratelimits",
             "columns": [{
                 "column_name": "guild_id",
@@ -75,6 +77,7 @@
             "table_schema": "admin",
             "comment": "The core table to hold stuff regarding welcome messages",
             "primary_key": "guild_id",
+            "entry_required": false,
             "table_space": "pg_default",
             "columns": [{
                     "column_name": "guild_id",
@@ -171,6 +174,7 @@
             "table_schema": "voting",
             "table_space": "pg_default",
             "primary_key": "vote_id",
+            "entry_required": false,
             "comment": "The core table for voting related actions. the main data of the vote is saved here",
             "columns": [{
                     "column_name": "vote_id",
@@ -209,6 +213,7 @@
             "table_schema": "voting",
             "table_space": "pg_default",
             "primary_key": "vote_id",
+            "entry_required": false,
             "comment": null,
             "columns": [{
                     "column_name": "vote_id",
