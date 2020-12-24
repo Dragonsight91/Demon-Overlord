@@ -81,7 +81,7 @@ class DemonOverlord(discord.Client):
         super().__init__(intents=intents, presence=presence)
 
     @staticmethod
-    async def change_status(client):
+    async def change_status(client: discord.Client) -> None:
         """
         Change the status to a random one one specified in the config
         this is a coroutine and it's supposed to run in the background 
@@ -104,9 +104,17 @@ class DemonOverlord(discord.Client):
             # sleep for 1h and hand over control
             await asyncio.sleep(3600)
 
-    async def wait_until_done(self):
+    async def wait_until_done(self) -> None:
         await self.wait_until_ready()
         await self._db_ready.wait()
+
+    async def on_guild_join(self, guild) -> None:
+        print(LogMessage(f"Joined guild {guild.name}, setting up database..."))
+        await self.database.add_guild(guild.id)
+
+    async def on_guild_remove(self, guild) -> None:
+        print(LogMessage(f"Removed guild {guild.name}, removing all data from database"))
+        await self.database.remove_guild(guild.id)
 
     async def on_ready(self) -> None:
         print(LogHeader("CONNECTED SUCCESSFULLY"))
@@ -166,11 +174,14 @@ class DemonOverlord(discord.Client):
                 else:
                     print(LogMessage("All Tables are in place and seem to be correct."))
 
-                # # test data in tables, since certain entries NEED to exist
-                # print(LogMessage("Checking Table Data"))
-                # if not await self.database._data_test(self.guilds):
-                #     print(LogMessage("Some default data desn't exist, trying to correct...", msg_type=LogType.WARNING))
-                #     self.database._data_test()
+                # test data in tables, since certain entries NEED to exist
+                print(LogMessage("Checking Table Data"))
+                if not await self.database.data_test(self.guilds):
+                    print(LogMessage("Some default data desn't exist, trying to correct...", msg_type=LogType.WARNING))
+                    await self.database.data_fix()
+                else:
+                    print(LogMessage("All Servers are in place and seem to be correctly set up."))
+
 
             except Exception as e:
                 # catch all errors and log them

@@ -13,7 +13,7 @@
             "comment": "The core table holding admin data of all servers",
             "columns": [{
                 "column_name": "guild_id",
-                "data_type": "integer",
+                "data_type": "bigint",
                 "column_default": null,
                 "is_nullable": false,
                 "character_maximum_length": null,
@@ -21,14 +21,14 @@
             }, {
                 "column_name": "has_welcome",
                 "data_type": "boolean",
-                "column_default": true,
+                "column_default": false,
                 "is_nullable": false,
                 "character_maximum_length": null,
                 "auto_increment": false
             }, {
                 "column_name": "has_voting",
                 "data_type": "boolean",
-                "column_default": true,
+                "column_default": false,
                 "is_nullable": false,
                 "character_maximum_length": null,
                 "auto_increment": false
@@ -39,11 +39,11 @@
             "table_schema": "admin",
             "table_space": "pg_default",
             "primary_key": "guild_id",
-            "entry_required": true,
+            "entry_required": false,
             "comment": "The table that holds all custom ratelimits",
             "columns": [{
                 "column_name": "guild_id",
-                "data_type": "integer",
+                "data_type": "bigint",
                 "column_default": null,
                 "is_nullable": false,
                 "character_maximum_length": null,
@@ -80,7 +80,7 @@
             "table_space": "pg_default",
             "columns": [{
                     "column_name": "guild_id",
-                    "data_type": "integer",
+                    "data_type": "bigint",
                     "column_default": null,
                     "is_nullable": false,
                     "character_maximum_length": null,
@@ -185,7 +185,7 @@
                 },
                 {
                     "column_name": "guild_id",
-                    "data_type": "integer",
+                    "data_type": "bigint",
                     "column_default": null,
                     "is_nullable": false,
                     "character_maximum_length": null,
@@ -224,7 +224,7 @@
                 },
                 {
                     "column_name": "guild_id",
-                    "data_type": "integer",
+                    "data_type": "bigint",
                     "column_default": null,
                     "is_nullable": false,
                     "character_maximum_length": null,

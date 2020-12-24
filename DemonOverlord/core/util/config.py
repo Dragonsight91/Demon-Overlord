@@ -108,6 +108,7 @@ class DatabaseConfig(object):
         self.db_pass = temp["POSTGRES_PASSWORD"]
         self.db_addr = temp["POSTGRES_SERVER"]
         self.db_port = temp["POSTGRES_PORT"]
+        self.main_db = temp["POSTGRES_DATABASE"]
         self.connection = None
         self.tables_scanned = asyncio.Event()
 
@@ -117,6 +118,7 @@ class DatabaseConfig(object):
 
         self.tables = db_template["tables"]
         self.tables_to_fix = []
+        self.necessary_tables = list(filter(lambda x : x["entry_required"], self.tables))
 
         # mark all schemata as missing by default
         self.schemata = {}
@@ -130,6 +132,7 @@ class DatabaseConfig(object):
             host=self.db_addr,
             port=self.db_port,
             database="postgres",
+            cursor_factory=psycopg2.extras.RealDictCursor,
         )
         self.connection_maintenance.set_session(autocommit=True)
 
@@ -144,7 +147,8 @@ class DatabaseConfig(object):
                     password=self.db_pass,
                     host=self.db_addr,
                     port=self.db_port,
-                    database="DemonOverlord",
+                    database=self.main_db,
+                    cursor_factory=psycopg2.extras.RealDictCursor,
                 )
                 self.connection_main.set_session(autocommit=True)
                 success = True
@@ -153,14 +157,14 @@ class DatabaseConfig(object):
                 try:
                     print(
                         LogMessage(
-                            f"Database DemonOverlord does not exist, trying to create, try {n-4}",
+                            f"Database {self.main_db} does not exist, trying to create",
                             msg_type=LogType.ERROR,
                             time=False,
                         )
                     )
                     cursor = self.connection_maintenance.cursor()
                     cursor.execute(
-                        "CREATE DATABASE \"DemonOverlord\" WITH OWNER = bot ENCODING = 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8' TABLESPACE = pg_default CONNECTION LIMIT = -1;"
+                        f"CREATE DATABASE \"{self.main_db}\" WITH OWNER = bot ENCODING = 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8' TABLESPACE = pg_default CONNECTION LIMIT = -1;"
                     )
                 except Exception:
                     # and we log our failure
@@ -189,7 +193,7 @@ class DatabaseConfig(object):
         """
 
         # create out infanmous cursor
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor = self.connection_main.cursor()
 
         # walk through all tables and check them 
         for table in self.tables:
@@ -241,9 +245,10 @@ class DatabaseConfig(object):
                         continue
 
                     # this part handles boolean types and type comparison to Python bool
-                    if row[0]["data_type"] == "boolean" and key == "column_default":
-                        if not column[key] == eval((row[0][key].lower()).capitalize()):
+                    if row[0]["data_type"] == "boolean" and key == "column_default" and not column["is_nullable"]:
+                        if not column[key] == eval((str(row[0][key]).lower()).capitalize()):
                             self.tables_to_fix.append((table, "WRONG_SETUP", column))
+
                         continue
 
                     # The part that handles if the default_column being a string
@@ -285,7 +290,7 @@ class DatabaseConfig(object):
         """A function to test if all schemas exist"""
 
         # make cursor and get all schemas
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor = self.connection_main.cursor()
         cursor.execute("SELECT * FROM information_schema.schemata")
         table = cursor.fetchall()
         cursor.close()
@@ -313,7 +318,7 @@ class DatabaseConfig(object):
             try:
                 to_fix = self.tables_to_fix.pop(0)
             except IndexError:
-                print(LogMessage("All database issues fixed"))
+                print(LogMessage("All table issues fixed"))
                 break
 
             # the table doesn't exist
@@ -375,7 +380,7 @@ class DatabaseConfig(object):
 
     async def _create_table(self, table: dict) -> None:
         """the function to create a table from a template"""
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor = self.connection_main.cursor()
         columns = []
 
         for column in table["columns"]:
@@ -425,17 +430,17 @@ class DatabaseConfig(object):
             )
         cursor.close()
 
-    async def _fix_pkey(self, table_name, schema_name, column):
+    async def _fix_pkey(self, table_name:str, schema_name:str, column:dict) -> None:
         """This fixes the table if the primary key is not set correctly. It simply overwrites the current PKEY"""
 
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor = self.connection_main.cursor()
         cursor.execute(
             f"ALTER TABLE {schema_name}.{table_name} ADD PRIMARY KEY ({column})"
         )
 
-    async def _add_column(self, table_name, schema_name, column):
+    async def _add_column(self, table_name:str, schema_name:str, column:dict) -> None:
         """This adds a column to a table"""
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cursor = self.connection_main.cursor()
 
         # some stuff to prepare
         nullable = "NOT NULL" if not column["is_nullable"] else ""
@@ -462,9 +467,11 @@ class DatabaseConfig(object):
         )
         cursor.close()
 
-    async def _fix_column(self, table_name, schema_name, column):
+    async def _fix_column(self, table_name:str, schema_name:str, column:dict) -> None:
         """This fixes a column if a it has not been set up properly"""
-        cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        
+        cursor = self.connection_main.cursor()
+
         # handle maximum legth
         max_len = (
             f"({column['character_maximum_length']})"
@@ -483,7 +490,7 @@ class DatabaseConfig(object):
         )
 
         # set  or unset default value
-        if column["column_default"]:
+        if column["column_default"] is not None:
             cursor.execute(
                 f"ALTER TABLE {schema_name}.{table_name} ALTER COLUMN {column['column_name']} SET DEFAULT {escape_val}"
             )
@@ -503,7 +510,91 @@ class DatabaseConfig(object):
             )
         cursor.close()
 
-    async def schema_fix(self):
+    async def data_test(self, guilds: list) -> bool:
+        """Check the check mandatory table data for missing entries and if default values have been violated"""
+        
+        cursor = self.connection_main.cursor()
+
+        for table in  self.necessary_tables:
+
+            for guild in guilds:
+                
+                cursor.execute(f"SELECT {','.join([x['column_name'] for x in table['columns']])} FROM {table['table_schema']}.{table['table_name']} WHERE guild_id=%s", [guild.id])
+                result = cursor.fetchall()
+
+                if len(result) == 0:
+                    self.tables_to_fix.append((table, "MISSING_ENTRY", guild.id))
+                    continue
+
+                for row in result:
+
+                    for key in row:
+                        
+                        # get correct column from template
+                        column = list(
+                            filter(lambda x: x["column_name"] == key, table["columns"])
+                        )
+
+                        if row[key] == None and not column["is_nullable"]:
+                            self.tables_to_fix.append((table, "WRONG_ENTRY", guild.id, column))
+
+        cursor.close()
+        if len(self.tables_to_fix) >0:
+            return False
+        else:
+            return True
+            
+    async def data_fix(self) -> None:
+        """Fix data that was marked as broken or missing"""
+
+        # do until done
+        while True:
+            to_fix = None
+            # try to pop the first element from the array, treating it essentially as queue
+            try:
+                to_fix = self.tables_to_fix.pop(0)
+            except IndexError:
+                print(LogMessage("All data issues fixed"))
+                break
+
+            # an entry has null where null shouldn't be
+            if to_fix[1] == "WRONG_ENTRY":
+                print(LogMessage(f"Fixing Table column '{to_fix[3]['column_name']}' for guild '{to_fix[2]}' in table '{to_fix[0]['table_name']}'"))
+                await self._fix_guild_entry(to_fix[0]['table_name'],to_fix[0]['table_name'] , to_fix[2], to_fix[3])
+            
+            # an entry doesn't exist at all
+            elif to_fix[1] == "MISSING_ENTRY":
+                print(LogMessage(f"Adding missing entry for guild '{to_fix[2]}' in table '{to_fix[0]['table_name']}'"))
+                await self._fix_missing_entry(to_fix[0]["table_name"], to_fix[0]["table_schema"], to_fix[2])
+
+    async def add_guild(self, guild_id:int) -> None:
+        """Add a guild to the mandatory tables in the database"""
+        cursor = self.connection_main.cursor()
+        for table in self.necessary_tables:
+            cursor.execute(f"INSERT INTO {table['table_schema']}.{table['table_name']} (guild_id) VALUES (%s)", [guild_id])
+        cursor.close()
+
+    async def remove_guild(self, guild_id:int) -> None:
+        """Remove a guild from all tables"""
+        cursor = self.connection_main.cursor()
+
+        for table in self.tables:
+            cursor.execute(f"DELETE FROM {table['table_schema']}.{table['table_name']} WHERE guild_id=%s", [guild_id])
+        cursor.close()
+
+    async def _fix_missing_entry(self, table_name:str, schema_name:str, guild_id:int) -> None:
+        """fix a single missing guild entry in specified table"""
+        cursor = self.connection_main.cursor()
+        cursor.execute(f"INSERT INTO {schema_name}.{table_name} (guild_id) VALUES (%s)", [guild_id])
+        cursor.close()
+
+    async def _fix_guild_entry(self, table_name:str, schema_name:str, guild_id:int, column:dict) -> None:
+        """fix a wrong default value (Null where NOT NULL is set)"""
+        cursor = self.connection_main.cursor()
+        cursor.execute(f"UPDATE {schema_name}.{table_name} SET column=%s WHERE guild_id=%s", [column["column_default"], guild_id])
+        cursor.close()
+
+    async def schema_fix(self) -> None:
         """"adds any schema marked as missing"""
         cursor = self.connection_main.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
