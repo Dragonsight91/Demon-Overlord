@@ -108,7 +108,7 @@ class DatabaseConfig(object):
         self.db_pass = temp["POSTGRES_PASSWORD"]
         self.db_addr = temp["POSTGRES_SERVER"]
         self.db_port = temp["POSTGRES_PORT"]
-        self.main_db = temp["POSTGRES_DATABASE"]
+        self.main_db = temp["POSTGRES_DB"]
         self.connection = None
         self.tables_scanned = asyncio.Event()
 

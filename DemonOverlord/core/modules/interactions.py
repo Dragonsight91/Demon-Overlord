@@ -68,18 +68,17 @@ async def handler(command) -> discord.Embed:
             )
             self_mention = False
             interact = social_interactions[command.action]
-            if command.invoked_by in command.mentions:
-                mentions = [command.bot.user.display_name]
+
+            if command.invoked_by.display_name in mentions:
+                url = await command.bot.api.tenor.get_interact(
+                    f'anime {social_interactions["hug"]["query"]}'
+                )
+                mentions = [command.invoked_by.display_name]
                 self_mention = True
                 interact = social_interactions["hug"]
 
-
             interact = SocialInteraction(
-                command.bot,
-                interact,
-                command.bot.user,
-                mentions,
-                url
+                command.bot, interact, command.bot.user, mentions, url, self_mention=self_mention
             )
 
         # these are combine interactions, interactions that are capable of alone AND social interaction behavior
@@ -120,6 +119,7 @@ async def handler(command) -> discord.Embed:
         interact.add_message(" ".join(command.params))
 
     return interact
+
 
 # base interaction
 class Interaction(ImageResponse):
@@ -165,7 +165,7 @@ class SocialInteraction(Interaction):
         user: discord.Member,
         mentions: list,
         url: str,
-        self_mention =False
+        self_mention=False,
     ):
         # initialize the super class
         super().__init__(bot, interaction_type, user, url, color=0xA251AF)
@@ -179,9 +179,12 @@ class SocialInteraction(Interaction):
         self.title = f'{bot.config.izzymojis[interaction_type["emoji"]]} {user.display_name} {interaction_type["action"]} {self.interact_with}'
 
         if self_mention:
-            self.description = random.choice(interaction_type["self"]) if len(interaction_type["self"]) > 0 else "Please don't do that"
-
-
+            
+            self.description = (
+                random.choice(interaction_type["self"])
+                if len(interaction_type["self"]) > 0
+                else ""
+            )
 
 
 class CombineInteraction(Interaction):
