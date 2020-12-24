@@ -19,7 +19,7 @@
             "POSTGRES_PASSWORD",
             "POSTGRES_SERVER",
             "POSTGRES_PORT",
-            "POSTGRES_DATABASE"
+            "POSTGRES_DB"
         ],
         "tenor": [
             "TENOR_TOKEN"

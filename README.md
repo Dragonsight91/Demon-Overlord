@@ -8,20 +8,33 @@ A discord bot custom built for the use of The InnerDemons discord community
 
 The bot uses five environment variables
 
-- `DISCORD_TESTBOT_TOKEN` OR `DISCORD_MAIN_TOKEN`
+- `DISCORD_TESTBOT_TOKEN` OR `DISCORD_MAIN_TOKEN` (depending on whether you're starting in testing mode or production.)
 - `TENOR_TOKEN` (an api token for tenor)
 - `POSTGRES_USER` (the postgres bot user)
 - `POSTGRES_PASSWORD` (the password for the postgres bot user)
-- `POSTGRES_ADDR` (the server address, e.g `localhost:5000`)
+- `POSTGRES_SERVER` (the server address, e.g `localhost:5000`)
+- `POSTGRES_PORT` (the port on `POSTGRES_SERVER` )
+- `POSTGRES_DB` (The name of the bot database) 
 
 *NOTE: You only need one of the bot keys.*
 
-To get the bot keys
+To get a bot key:
 
-1. Ask on [#programmer-hell](https://discordapp.com/channels/658407338822336554/684088661884928040) on the Discord server to be added to the dev team
-2. Accept the invite
-3. Go to `Applications` and select the bot you want.
-4. Got to `Bots` copy the `TOKEN` next to the bot icon
+- if you are member of InnerDemons:
+    1. Ask on [#programmer-hell](https://discordapp.com/channels/658407338822336554/684088661884928040) on the Discord server to be added to the dev team
+    2. Accept the invite
+    3. Go to `Applications` and select the bot you want.
+    4. Got to `Bots` copy the `TOKEN` next to the bot icon
+- else:
+    1. go to the [discord developer site](https://discord.com/developers/applications)
+    2. create an application
+    3. navigate to `bot`
+    4. click `Add Bot` and confirm
+    5. go to token and click `copy`
+    6. this bot needs privileged gateway intents, so also scroll down and enable all of them
+    7. to add the bot to a server just go to `OAuth2 > scopes`
+    8. tick the `bot` scope, copy the URL and click `copy`
+    9. paste the link into the browser and select the server where you wish to add the bot
 
 Once you have the bot key, add the environment variable (this is how you do it in linux. For windows instructions, please consult the internet).
 

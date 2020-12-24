@@ -29,10 +29,17 @@ if [ ! -d "$HOME/bot/database-data" ]; then
 else
     echo "$HOME/bot/database-data already exists..." 
 fi
+
 # only symlink the compose config so it is updated on pull
 if [ -L $HOME/bot/docker-compose.yaml ] || [ -f $HOME/bot/docker-compose.yaml ]; then
     echo "docker-compose link already exists, replacing..."
     rm $HOME/bot/docker-compose.yaml
+fi
+
+if [ ! -f "$HOME/bot/bot.env" ]; then
+    touch  $HOME/bot/bot.env
+else
+    echo "$HOME/bot/bot.env already exists..." 
 fi
 
 ln -s $PWD/docker-compose.yaml $HOME/bot/docker-compose.yaml

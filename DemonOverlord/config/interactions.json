@@ -223,6 +223,7 @@
             "type": "social",
             "action": "kicks",
             "emoji": "izzyeyes",
+            "self": [],
             "gifs": []
         },
         "cuddle": {
@@ -230,6 +231,7 @@
             "type": "social",
             "action": "snuggles with",
             "emoji": "izzyhug",
+            "self": [],
             "gifs": []
         },
         "hold": {
@@ -237,6 +239,7 @@
             "type": "social",
             "action": "holds hands with",
             "emoji": "izzyhug",
+            "self": [],
             "gifs": []
         },
         "boop": {
@@ -244,6 +247,7 @@
             "type": "social",
             "action": "kisses",
             "emoji": "izzyhug",
+            "self": [],
             "gifs": []
         },
         "hug": {
@@ -251,6 +255,7 @@
             "type": "social",
             "action": "hugs",
             "emoji": "izzyhug",
+            "self": [],
             "gifs": []
         },
         "pat": {
@@ -258,6 +263,7 @@
             "type": "social",
             "action": "pats",
             "emoji": "trashlove",
+            "self": [],
             "gifs": []
         },
         "poke": {
@@ -265,6 +271,7 @@
             "type": "social",
             "action": "pokes",
             "emoji": "hello",
+            "self": [],
             "gifs": []
         },
         "shoot": {
@@ -272,6 +279,7 @@
             "type": "social",
             "action": "shoots",
             "emoji": "izzyeyes",
+            "self": [],
             "gifs": []
         },
         "slap": {
@@ -279,6 +287,7 @@
             "type": "social",
             "action": "slaps",
             "emoji": "izzyeyes",
+            "self": [],
             "gifs": []
         },
         "tackle": {
@@ -286,6 +295,7 @@
             "type": "social",
             "action": "tackles",
             "emoji": "izzyeyes",
+            "self": [],
             "gifs": []
         },
         "stab": {
@@ -293,6 +303,7 @@
             "type": "social",
             "action": "stabs",
             "emoji": "knife",
+            "self": [],
             "gifs": []
         },
         "highfive": {
@@ -300,6 +311,7 @@
             "type": "social",
             "action": "highfives",
             "emoji": "happyizzy",
+            "self": [],
             "gifs": []
         }
     }
