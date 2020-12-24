@@ -1,6 +1,6 @@
 import discord
 
-
+# core imports
 from DemonOverlord.core.util.responses import ImageResponse, BadCommandResponse
 from DemonOverlord.core.util.logger import LogCommand, LogMessage, LogHeader
 

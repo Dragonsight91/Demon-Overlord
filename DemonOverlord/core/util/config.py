@@ -1,8 +1,6 @@
-from datetime import time
 from DemonOverlord.core.util.logger import LogMessage, LogType
 import discord
 import os
-import sys
 import json
 import asyncio
 import psycopg2, psycopg2.extras, psycopg2.extensions

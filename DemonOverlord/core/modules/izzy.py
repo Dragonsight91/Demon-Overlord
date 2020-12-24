@@ -1,5 +1,4 @@
-import discord
-
+# core imports
 from DemonOverlord.core.util.responses import TextResponse, BadCommandResponse
 from DemonOverlord.core.modules.help import gen_help
 

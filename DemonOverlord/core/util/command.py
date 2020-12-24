@@ -1,17 +1,17 @@
+import discord
+import pkgutil
+import traceback
+from importlib import import_module
+
+# core imports
+import DemonOverlord.core.modules as cmds
 from DemonOverlord.core.util.responses import (
     TextResponse,
     RateLimitResponse,
     ErrorResponse,
     BadCommandResponse,
 )
-from importlib import import_module
-from inspect import getmembers
 
-import discord
-import pkgutil
-import traceback
-import asyncio
-import DemonOverlord.core.modules as cmds
 
 
 class Command(object):

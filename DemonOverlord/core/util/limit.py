@@ -1,4 +1,3 @@
-import discord
 from time import time
 
 

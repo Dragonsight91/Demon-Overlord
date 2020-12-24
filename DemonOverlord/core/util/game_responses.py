@@ -1,4 +1,3 @@
-import discord
 from time import time
 
 from DemonOverlord.core.util.responses import TextResponse

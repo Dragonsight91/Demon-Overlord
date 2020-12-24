@@ -4,8 +4,7 @@
         "admin",
         "relations"
     ],
-    "tables": [
-        {
+    "tables": [{
             "table_name": "admin_core",
             "table_schema": "admin",
             "table_space": "pg_default",
@@ -34,7 +33,7 @@
                 "character_maximum_length": null,
                 "auto_increment": false
             }]
-        }, 
+        },
         {
             "table_name": "ratelimits",
             "table_schema": "admin",
