@@ -6,7 +6,7 @@ services:
             - "443:443"
         restart: always
         env_file:
-            - ~/bot/.env
+            - ~/bot/bot.env
         environment:
             DISCORD_MAIN_TOKEN:
             DISCORD_TESTBOT_TOKEN:
@@ -23,7 +23,7 @@ services:
         ports:
             - "5432:5432"
         env_file:
-            - ~/bot/.env
+            - ~/bot/bot.env
         environment: 
             POSTGRES_USER: 
             POSTGRES_PASSWORD:

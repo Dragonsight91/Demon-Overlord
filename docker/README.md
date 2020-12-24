@@ -14,7 +14,7 @@ BEFORE you do ANYTHING with these files, you will have to install Docker and Doc
 
 NOTE: **THIS SHOULD NEVER BE NECESSARY IF YOU ARE JUST DEVELOPING THE BOT !!!**
 
-To really use the Docker containers, these envvars have to be set in `~/bot/.env`:
+To really use the Docker containers, these envvars have to be set in `~/bot/bot.env`:
 
 - `DISCORD_MAIN_TOKEN` (this is production only)
 - `TENOR_TOKEN` (an api token for tenor)
