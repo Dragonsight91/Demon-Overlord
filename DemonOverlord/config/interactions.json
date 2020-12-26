@@ -279,7 +279,7 @@
             "type": "social",
             "action": "shoots",
             "emoji": "izzyeyes",
-            "self": [],
+            "self": ["please don't do this, we all love you :heart:"],
             "gifs": []
         },
         "slap": {
@@ -303,7 +303,7 @@
             "type": "social",
             "action": "stabs",
             "emoji": "knife",
-            "self": [],
+            "self": ["please don't do this, we all love you :heart:"],
             "gifs": []
         },
         "highfive": {
