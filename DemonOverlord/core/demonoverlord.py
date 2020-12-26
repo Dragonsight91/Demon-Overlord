@@ -5,6 +5,7 @@ import asyncio
 
 
 # core imports
+from DemonOverlord.core.util import services
 from DemonOverlord.core.util.config import (
     CommandConfig,
     BotConfig,
@@ -80,29 +81,12 @@ class DemonOverlord(discord.Client):
         # initializing discord client
         super().__init__(intents=intents, activity=presence)
 
-    @staticmethod
-    async def change_status(client: discord.Client) -> None:
-        """
-        Change the status to a random one one specified in the config
-        this is a coroutine and it's supposed to run in the background 
-        """
-        await client.wait_until_ready()
-        while True:
-            # there's a 5% chance of the status changing at all
-            if random.random() < 0.05:
-                # choose a random one from the list and set it
-                presence = random.choice(client.config.status_messages)
-                await client.change_presence(activity=presence)
-
-                # log the action
-                presence_type = str(presence.type).split(".")[1]
-                print(
-                    LogMessage(
-                        f"Set Status \"{LogFormat.format(f'{presence_type} {presence.name}', LogFormat.BOLD)}\""
-                    )
-                )
-            # sleep for 1h and hand over control
-            await asyncio.sleep(3600)
+        # initialize our own services
+        try:
+            self.loop.create_task(services.change_status(self))
+            self.loop.create_task(services.fetch_steamdata(self))
+        except Exception:
+            print(LogMessage("Setup for services failed"))
 
     async def wait_until_done(self) -> None:
         await self.wait_until_ready()

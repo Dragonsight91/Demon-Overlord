@@ -2,7 +2,8 @@
     "schemata": [
         "voting",
         "admin",
-        "relations"
+        "relations",
+        "public"
     ],
     "tables": [{
             "table_name": "admin_core",
@@ -252,7 +253,70 @@
                     "auto_increment": false
                 }
             ]
+        },
+        {
+            "table_name": "steam_data",
+            "table_schema": "public",
+            "table_space": "pg_default",
+            "primary_key": "appid",
+            "entry_required": false,
+            "comment": "The table that holds all steam data and will be abused as cache",
+            "columns": [
+                {
+                    "column_name" : "appid",
+                    "data_type" : "bigint",
+                    "column_default" : null,
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                },{
+                    "column_name" : "game_name",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : false,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                }, {
+                    "column_name" : "store_url",
+                    "data_type" : "character varying",
+                    "column_default" : "",
+                    "is_nullable" : false,
+                    "character_maximum_length" : 256,
+                    "auto_increment" : false
+                },{
+                    "column_name" : "image_url",
+                    "data_type" : "character varying",
+                    "column_default" : "",
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                }
+            ]
+        },
+        {
+            "table_name": "api_refresh",
+            "table_schema": "public",
+            "table_space": "pg_default",
+            "primary_key": "api_name",
+            "entry_required": false,
+            "comment": "a table that holds timestamps of the last api access for certain apis.",
+            "columns": [
+                {
+                    "column_name" : "api_name",
+                    "data_type" : "character varying",
+                    "column_default" : null,
+                    "is_nullable" : false,
+                    "character_maximum_length" : 30,
+                    "auto_increment" : false
+                }, {
+                    "column_name" : "last_access",
+                    "data_type" : "bigint",
+                    "column_default" : null,
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                }
+            ]
         }
-
     ]
 }

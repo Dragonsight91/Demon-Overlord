@@ -91,3 +91,4 @@ class LogCommand(LogMessage):
         self.message += f"\n{LogFormat.format('COMMAND', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0))} : {str(command.command)}"
         self.message += f"\n{LogFormat.format('ACTION', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0)): <7} : {command.action}"
         self.message += f"\n{LogFormat.format('PARAMS', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0)): <7} : {str(command.params)}"
+

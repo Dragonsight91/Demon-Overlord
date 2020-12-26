@@ -1,13 +1,14 @@
-from DemonOverlord.core.util.logger import LogMessage, LogType
+
 import discord
 import os
-import json
+import ujson as json
 import asyncio
 import psycopg2, psycopg2.extras, psycopg2.extensions
 
-from DemonOverlord.core.util.api import TenorAPI, InspirobotAPI
-from DemonOverlord.core.util.limit import RateLimiter
 
+from DemonOverlord.core.util.api import TenorAPI, InspirobotAPI, SteamAPI
+from DemonOverlord.core.util.limit import RateLimiter
+from DemonOverlord.core.util.logger import LogMessage, LogType
 
 class BotConfig(object):
     """
@@ -85,10 +86,16 @@ class APIConfig(object):
         # var init
         self.tenor = None
         self.inspirobot = InspirobotAPI()
+        self.steam = SteamAPI()
 
         tenor_key = os.environ.get(config.env["tenor"][0])
         if tenor_key:
             self.tenor = TenorAPI(tenor_key)
+
+    async def close_connections(self):
+        await self.tenor.close() if self.tenor else None
+        await self.steam.close()
+        await self.inspirobot.close()
 
 
 class DatabaseConfig(object):
@@ -96,7 +103,7 @@ class DatabaseConfig(object):
     This class handles all Database integrations and connections as well as setup and testing the database.
     """
 
-    def __init__(self, bot, confdir):
+    def __init__(self, bot: discord.Client, confdir):
 
         # initialize envvars
         temp = {}

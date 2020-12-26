@@ -98,6 +98,7 @@ async def handler(command) -> discord.Embed:
                     url,
                 )
             elif combine_interactions[command.action]["type"] == "game":
+                
                 interact = GameInteraction(
                     command.bot,
                     combine_interactions[command.action],
@@ -105,6 +106,7 @@ async def handler(command) -> discord.Embed:
                     mentions,
                     url,
                 )
+                await interact.add_steamdata(command.bot)
             else:
                 interact = CombineInteraction(
                     command.bot,
@@ -279,15 +281,15 @@ class GameInteraction(CombineInteraction):
             )
         )
         self.game = game[0] if len(game) > 0 else None
-
         # The user is playing a game
         if self.game != None:
-
+            
             # the user is just playing a game
             if (
                 isinstance(self.game, discord.Game)
                 or self.game.type == discord.ActivityType.playing
             ):
+                
                 self.insert_field_at(
                     0, name="Game:", value=self.game.name, inline=False
                 )
@@ -300,3 +302,11 @@ class GameInteraction(CombineInteraction):
                     value=f"**__Game:__** {self.game.game}",
                 )
                 self.url = self.game.url
+
+    async def add_steamdata(self, bot):
+        if not self.game ==None:
+            if isinstance(self.game, discord.Game) or self.game.type == discord.ActivityType.playing:
+                steamdata = await bot.api.steam.get_gamedata(bot, self.game.name)
+                if not steamdata== None:
+                    self.url = steamdata["store_url"]
+                    self.set_thumbnail(url=steamdata["image_url"])
