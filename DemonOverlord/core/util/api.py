@@ -106,7 +106,7 @@ class SteamAPI(API):
                 game = game.upper().replace(i.upper(), "")
 
             with bot.database.connection_main.cursor() as cursor:
-                cursor.execute("SELECT store_url, image_url FROM public.steam_data WHERE UPPER(game_name) LIKE %s ORDER BY appid ASC", [f"%{game.strip()}%"])
+                cursor.execute("SELECT store_url, image_url FROM public.steam_data WHERE UPPER(game_name) = %s ORDER BY appid ASC", [f"{game.strip()}"])
                 results = cursor.fetchall()
                 if len(results) == 0:
                     return None

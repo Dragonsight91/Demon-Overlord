@@ -2,6 +2,10 @@ import discord
 import os
 import random
 import asyncio
+import re
+
+from discord import guild
+from discord import embeds
 
 
 # core imports
@@ -13,6 +17,7 @@ from DemonOverlord.core.util.config import (
     APIConfig,
 )
 from DemonOverlord.core.util.command import Command
+from DemonOverlord.core.util.responses import WelcomeResponse
 from DemonOverlord.core.util.logger import (
     LogCommand,
     LogMessage,
@@ -100,6 +105,11 @@ class DemonOverlord(discord.Client):
         print(LogMessage(f"Removed guild {guild.name}, removing all data from database"))
         await self.database.remove_guild(guild.id)
 
+    async def on_member_join(self, member: discord.Member):
+        if not (welcome := self.database.get_welcome(member.guild)) == None:
+            response = WelcomeResponse(welcome, self, member)
+            await response.channel.send(embed=response)
+            
     async def on_ready(self) -> None:
         print(LogHeader("CONNECTED SUCCESSFULLY"))
         print(LogMessage(f"{'USERNAME': <10}: {self.user.name}", time=False))
@@ -158,14 +168,8 @@ class DemonOverlord(discord.Client):
                 else:
                     print(LogMessage("All Tables are in place and seem to be correct."))
 
-                # test data in tables, since certain entries NEED to exist
-                print(LogMessage("Checking Table Data"))
-                if not await self.database.data_test(self.guilds):
-                    print(LogMessage("Some default data desn't exist, trying to correct...", msg_type=LogType.WARNING))
-                    await self.database.data_fix()
-                else:
-                    print(LogMessage("All Servers are in place and seem to be correctly set up."))
-
+                # print(LogMessage("Updating Guild status...."))
+                # self.database.update_guilds()
 
             except Exception as e:
                 # catch all errors and log them
@@ -177,7 +181,10 @@ class DemonOverlord(discord.Client):
                 )
                 print(LogMessage(e, msg_type=LogType.ERROR))
                 self.local = True
-
+        for guild in self.guilds:
+            print(f"Joined guild {guild.name} at {guild.me.joined_at}")
+            
+        
         # finish up and send the ready event
         print(LogHeader("startup done"))
         self._db_ready.set()
@@ -197,6 +204,5 @@ class DemonOverlord(discord.Client):
 
                 # build the command and execute it
                 command = Command(self, message)
-                if not command.none:
-                   print(LogCommand(command))
-                   await command.exec()
+                print(LogCommand(command))
+                await command.exec()

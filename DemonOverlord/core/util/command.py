@@ -1,3 +1,4 @@
+from DemonOverlord.core.util.logger import LogCommand
 import discord
 import pkgutil
 import traceback
@@ -28,18 +29,23 @@ class Command(object):
         self.special = None
         self.message = message
         self.short = False
-        self.none=False
+        self.params = None
 
         # create the command
         to_filter = ["", " ", None]
         temp = list(filter(lambda x: not x in to_filter, message.content.split(" ")))
 
-        if len(temp) < 2:
-            self.none=True
+
+        # test for correctness
+        self.prefix = temp[0]
+        if len(temp) > 1:
+            self.command = temp[1]
+        else:
+            # empty command
+            self.err = True
+            self.command = None
             return
 
-        self.prefix = temp[0]
-        self.command = temp[1]
         if self.command in bot.commands.short:
             self.short = True
 
@@ -74,10 +80,9 @@ class Command(object):
 
         try:
             if (self.command in dir(cmds)) and (not self.short):
-                limit = self.bot.commands.ratelimits.exec(self)
-
                 # see if limiter is active, if not, execute the command
-                if not limit["isActive"]:
+                # limiter removed temporarily. 
+                if not False:
                     response = await getattr(cmds, self.command).handler(self)
                 else:
                     # rate limit error

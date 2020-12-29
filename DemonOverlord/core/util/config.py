@@ -1,4 +1,6 @@
 
+import datetime
+import time
 import discord
 import os
 import ujson as json
@@ -7,7 +9,6 @@ import psycopg2, psycopg2.extras, psycopg2.extensions
 
 
 from DemonOverlord.core.util.api import TenorAPI, InspirobotAPI, SteamAPI
-from DemonOverlord.core.util.limit import RateLimiter
 from DemonOverlord.core.util.logger import LogMessage, LogType
 
 class BotConfig(object):
@@ -65,8 +66,8 @@ class BotConfig(object):
             )
 
         # set the token
-        self.token = os.environ.get(self.mode["tokenvar"])
         self.env = self.raw["env_vars"]
+        self.token = os.environ[self.env["discord"][f"{self.mode['name']}_token"]]
         self.emoji = self.raw["emoji"]
 
     def post_connect(self, bot: discord.Client):
@@ -88,7 +89,7 @@ class APIConfig(object):
         self.inspirobot = InspirobotAPI()
         self.steam = SteamAPI()
 
-        tenor_key = os.environ.get(config.env["tenor"][0])
+        tenor_key = os.environ.get(config.env["tenor"]["token"])
         if tenor_key:
             self.tenor = TenorAPI(tenor_key)
 
@@ -105,19 +106,15 @@ class DatabaseConfig(object):
 
     def __init__(self, bot: discord.Client, confdir):
 
-        # initialize envvars
-        temp = {}
-        for var in bot.config.env["postgres"]:
-            temp.update({var: os.environ[var]})
-
         # set internal to env
-        self.db_user = temp["POSTGRES_USER"]
-        self.db_pass = temp["POSTGRES_PASSWORD"]
-        self.db_addr = temp["POSTGRES_SERVER"]
-        self.db_port = temp["POSTGRES_PORT"]
-        self.main_db = temp["POSTGRES_DB"]
+        self.db_user = os.environ[bot.config.env["postgres"]["user"]]
+        self.db_pass = os.environ[bot.config.env["postgres"]["pass"]]
+        self.db_addr = os.environ[bot.config.env["postgres"]["host"]]
+        self.db_port = os.environ[bot.config.env["postgres"]["port"]]
+        self.main_db = os.environ[bot.config.env["postgres"]["db"]]
         self.connection = None
         self.tables_scanned = asyncio.Event()
+        self.settings = {}
 
         # load database templates
         with open(os.path.join(confdir, "db_template.json")) as file:
@@ -517,89 +514,50 @@ class DatabaseConfig(object):
             )
         cursor.close()
 
-    async def data_test(self, guilds: list) -> bool:
-        """Check the check mandatory table data for missing entries and if default values have been violated"""
-        
-        cursor = self.connection_main.cursor()
-
-        for table in  self.necessary_tables:
-
-            for guild in guilds:
-                
-                cursor.execute(f"SELECT {','.join([x['column_name'] for x in table['columns']])} FROM {table['table_schema']}.{table['table_name']} WHERE guild_id=%s", [guild.id])
-                result = cursor.fetchall()
-
-                if len(result) == 0:
-                    self.tables_to_fix.append((table, "MISSING_ENTRY", guild.id))
-                    continue
-
-                for row in result:
-
-                    for key in row:
-                        
-                        # get correct column from template
-                        column = list(
-                            filter(lambda x: x["column_name"] == key, table["columns"])
-                        )
-
-                        if row[key] == None and not column["is_nullable"]:
-                            self.tables_to_fix.append((table, "WRONG_ENTRY", guild.id, column))
-
-        cursor.close()
-        if len(self.tables_to_fix) >0:
-            return False
-        else:
-            return True
-            
-    async def data_fix(self) -> None:
-        """Fix data that was marked as broken or missing"""
-
-        # do until done
-        while True:
-            to_fix = None
-            # try to pop the first element from the array, treating it essentially as queue
-            try:
-                to_fix = self.tables_to_fix.pop(0)
-            except IndexError:
-                print(LogMessage("All data issues fixed"))
-                break
-
-            # an entry has null where null shouldn't be
-            if to_fix[1] == "WRONG_ENTRY":
-                print(LogMessage(f"Fixing Table column '{to_fix[3]['column_name']}' for guild '{to_fix[2]}' in table '{to_fix[0]['table_name']}'"))
-                await self._fix_guild_entry(to_fix[0]['table_name'],to_fix[0]['table_name'] , to_fix[2], to_fix[3])
-            
-            # an entry doesn't exist at all
-            elif to_fix[1] == "MISSING_ENTRY":
-                print(LogMessage(f"Adding missing entry for guild '{to_fix[2]}' in table '{to_fix[0]['table_name']}'"))
-                await self._fix_missing_entry(to_fix[0]["table_name"], to_fix[0]["table_schema"], to_fix[2])
-
-    async def add_guild(self, guild_id:int) -> None:
+    async def add_guild(self, guild:int) -> None:
         """Add a guild to the mandatory tables in the database"""
         cursor = self.connection_main.cursor()
         for table in self.necessary_tables:
-            cursor.execute(f"INSERT INTO {table['table_schema']}.{table['table_name']} (guild_id) VALUES (%s)", [guild_id])
+            if not table["all_required"]:
+                # these ones can be set by default
+                cursor.execute(f"INSERT INTO {table['table_schema']}.{table['table_name']} (guild_id) VALUES (%s)", [guild.id])
+        
+        # manual insertion of data
+        cursor.execute(f"INSERT INTO public.last_seen (guild_id, joined_at, last_seen) VALUES (%s, %s, %s)", [guild.id, int(datetime.datetime.timestamp(guild.me.joined_at)), int(time.time())])
         cursor.close()
 
-    async def remove_guild(self, guild_id:int) -> None:
+    async def check_guilds(self, bot:discord.Client):
+        cursor = self.connection_main.cursor()
+        
+    async def remove_guild(self, guild:int) -> None:
         """Remove a guild from all tables"""
         cursor = self.connection_main.cursor()
 
         for table in self.tables:
-            cursor.execute(f"DELETE FROM {table['table_schema']}.{table['table_name']} WHERE guild_id=%s", [guild_id])
+            cursor.execute(f"DELETE FROM {table['table_schema']}.{table['table_name']} WHERE guild_id=%s", [guild.id])
         cursor.close()
 
-    async def _fix_missing_entry(self, table_name:str, schema_name:str, guild_id:int) -> None:
-        """fix a single missing guild entry in specified table"""
+    async def update_guilds(self, guilds: list):
         cursor = self.connection_main.cursor()
-        cursor.execute(f"INSERT INTO {schema_name}.{table_name} (guild_id) VALUES (%s)", [guild_id])
-        cursor.close()
 
     async def _fix_guild_entry(self, table_name:str, schema_name:str, guild_id:int, column:dict) -> None:
         """fix a wrong default value (Null where NOT NULL is set)"""
         cursor = self.connection_main.cursor()
         cursor.execute(f"UPDATE {schema_name}.{table_name} SET column=%s WHERE guild_id=%s", [column["column_default"], guild_id])
         cursor.close()
+
+    async def get_welcome(self, guild_id) -> dict:
+        try:
+            return self.settings[str(guild_id)]
+        except Exception: 
+            with self.connection_main.cursor() as cursor:
+                cursor.execute(f"SELECT * from admin.welcome_messages WHERE guild_id=%s", [guild_id])
+                res = cursor.fetchone()
+                self.settings[str(guild_id)] = res
+            return res
+
+    async def update_welcome() -> None:
+        pass
 
     async def schema_fix(self) -> None:
         """"adds any schema marked as missing"""
@@ -661,5 +619,3 @@ class CommandConfig(object):
             }
         )
 
-        # generate all other rate limits
-        self.ratelimits = RateLimiter(self.list)

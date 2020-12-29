@@ -26,8 +26,10 @@ class LogType:
 
     MESSAGE = f"{LogFormat.format('MESSAGE', LogFormat.OKGREEN)}"
     COMMAND = f"{LogFormat.format('COMMAND', LogFormat.OKGREEN)}"
+    COMMAND_ERR = f"{LogFormat.format('COMMAND_ERR', LogFormat.FAIL)}"
     ERROR = f"{LogFormat.format('ERROR', LogFormat.FAIL)}"
     WARNING = f"{LogFormat.format('WARNING', LogFormat.WARNING)}"
+
 
 
 class LogMessage:
@@ -86,7 +88,10 @@ class LogCommand(LogMessage):
     """This creates a log messsage specifically for a command"""
 
     def __init__(self, command, time=False):
-        super().__init__("", msg_type=LogType.COMMAND, time=time)
+        type = LogType.COMMAND
+
+        super().__init__("", msg_type=type, time=time)
+
         self.message = f"INCOMING COMMAND"
         self.message += f"\n{LogFormat.format('COMMAND', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0))} : {str(command.command)}"
         self.message += f"\n{LogFormat.format('ACTION', LogFormat.UNDERLINE).rjust(len(self.type)+9+(len(str(self.time))+9 if self.time else 0)): <7} : {command.action}"

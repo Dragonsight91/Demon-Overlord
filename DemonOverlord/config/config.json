@@ -3,28 +3,29 @@
         "bot_modes": {
             "--dev": {
                 "name": "development",
-                "prefix": "-testmao",
-                "tokenvar": "DISCORD_TESTBOT_TOKEN"
+                "prefix": "-testmao"
             },
             "--prod": {
                 "name": "production",
-                "prefix": "-mao",
-                "tokenvar": "DISCORD_MAIN_TOKEN"
+                "prefix": "-mao"
             }
         }
     },
     "env_vars": {
-        "postgres": [
-            "POSTGRES_USER",
-            "POSTGRES_PASSWORD",
-            "POSTGRES_SERVER",
-            "POSTGRES_PORT",
-            "POSTGRES_DB"
-        ],
-        "tenor": [
-            "TENOR_TOKEN"
-
-        ]
+        "postgres": {
+            "user":"POSTGRES_USER",
+            "pass":"POSTGRES_PASSWORD",
+            "host":"POSTGRES_SERVER",
+            "port":"POSTGRES_PORT",
+            "db":"POSTGRES_DB"
+        },
+        "tenor": {
+            "token":"TENOR_TOKEN"
+        }, 
+        "discord" : {
+            "production_token": "DISCORD_MAIN_TOKEN",
+            "development_token": "DISCORD_TESTBOT_TOKEN"
+        }
     },
     "izzymojis": {
         "izzyangry": 684123588927815710,
