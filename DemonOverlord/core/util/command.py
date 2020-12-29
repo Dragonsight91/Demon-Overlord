@@ -30,7 +30,6 @@ class Command(object):
         self.message = message
         self.short = False
 
-
         # create the command
         to_filter = ["", " ", None]
         temp = list(filter(lambda x: not x in to_filter, message.content.split(" ")))
