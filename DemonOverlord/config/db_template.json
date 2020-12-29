@@ -118,7 +118,7 @@
                     "column_name": "embed_color",
                     "data_type": "integer",
                     "column_default": 3553599,
-                    "is_nullable": false,
+                    "is_nullable": true,
                     "character_maximum_length": null,
                     "auto_increment": false
                 },
@@ -126,7 +126,7 @@
                     "column_name": "embed_image",
                     "data_type": "character varying",
                     "column_default": "https://i.ytimg.com/vi/ekthcIHDt3I/maxresdefault.jpg",
-                    "is_nullable": false,
+                    "is_nullable": true,
                     "character_maximum_length": 256,
                     "auto_increment": false
                 },
@@ -134,7 +134,7 @@
                     "column_name": "embed_thumbnail",
                     "data_type": "character varying",
                     "column_default": "{user.icon}",
-                    "is_nullable": false,
+                    "is_nullable": true,
                     "character_maximum_length": 256,
                     "auto_increment": false
                 },
@@ -142,7 +142,7 @@
                     "column_name": "embed_author",
                     "data_type": "character varying",
                     "column_default": "{@Demon Overlord.name}",
-                    "is_nullable": false,
+                    "is_nullable": true,
                     "character_maximum_length": 256,
                     "auto_increment": false
                 },
@@ -150,7 +150,7 @@
                     "column_name": "embed_author_img",
                     "data_type": "character varying",
                     "column_default": "{@Demon Overlord.icon}",
-                    "is_nullable": false,
+                    "is_nullable": true,
                     "character_maximum_length": 256,
                     "auto_increment": false
                 }

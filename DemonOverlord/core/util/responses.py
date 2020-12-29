@@ -187,7 +187,15 @@ class ErrorResponse(TextResponse):
         self.add_field(name="Full Command:", value=command.full, inline=False)
         self.add_field(name="Message:", value=f"```\n{tb}\n```", inline=False)
 
+class ConfirmedResponse(TextResponse):
+    def __init__(self, msg, ctrl_seq):
+        super().__init__(title=f"{msg} was {ctrl_seq} on this server", color=0x1ceb1c)
 
+class AbortedResponse(TextResponse):
+    def __init__(self, message, reason):
+        super().__init__(
+            f"{message} was aborted because {reason}", color=0xFF0000, icon="🚫"
+        )
 class BadCommandResponse(TextResponse):
     """
     This Represents a Discord Embed and any properties of that embed are active and usable by this class.

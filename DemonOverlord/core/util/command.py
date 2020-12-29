@@ -21,6 +21,7 @@ class Command(object):
         # initialize all properties
         self.invoked_by = message.author
         self.mentions = message.mentions
+        self.channels = message.channel_mentions
         self.guild = message.guild
         self.action = None
         self.bot = bot

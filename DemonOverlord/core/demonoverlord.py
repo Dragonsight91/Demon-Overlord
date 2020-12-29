@@ -106,7 +106,7 @@ class DemonOverlord(discord.Client):
         await self.database.remove_guild(guild.id)
 
     async def on_member_join(self, member: discord.Member):
-        if not (welcome := self.database.get_welcome(member.guild)) == None:
+        if not (welcome := await self.database.get_welcome(member.guild.id)) == None:
             response = WelcomeResponse(welcome, self, member)
             await response.channel.send(embed=response)
             
@@ -169,7 +169,7 @@ class DemonOverlord(discord.Client):
                     print(LogMessage("All Tables are in place and seem to be correct."))
 
                 # print(LogMessage("Updating Guild status...."))
-                # self.database.update_guilds()
+                # self.database.update_guilds(self.guilds)
 
             except Exception as e:
                 # catch all errors and log them
