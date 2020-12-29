@@ -111,5 +111,5 @@ class MissingPermissionResponse(TextResponse):
             name="Message",
             value=f"""Sorry, but the bot is not allowed to use `{forbidden_function}`
             This error only occurs, when there is a missing permission.
-            Please fix the permissions and add 'needed permission' to the bot role, before trying again.""",
+            Please fix the permissions and add the needed permission to the bot role, before trying again.""",
         )
