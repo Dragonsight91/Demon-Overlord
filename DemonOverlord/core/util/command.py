@@ -10,6 +10,7 @@ from DemonOverlord.core.util.responses import (
     RateLimitResponse,
     ErrorResponse,
     BadCommandResponse,
+    MissingPermissionResponse,
 )
 
 
@@ -28,6 +29,7 @@ class Command(object):
         self.special = None
         self.message = message
         self.short = False
+
 
         # create the command
         to_filter = ["", " ", None]
@@ -80,9 +82,11 @@ class Command(object):
 
             else:
                 response = BadCommandResponse(self)
+        except discord.Forbidden:
+            response = MissingPermissionResponse(self, traceback.format_exc())
         except Exception:
             response = ErrorResponse(self, traceback.format_exc())
-
+ 
         # Send the message
         message = await self.channel.send(embed=response)
 

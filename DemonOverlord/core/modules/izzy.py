@@ -16,7 +16,7 @@ async def handler(command):
         except:
             return BadCommandResponse(command)
 
-    # default action if shit goes wee: bad comand
+    # default action if shit goes wee: bad command
     else:
         return BadCommandResponse(command)
 
