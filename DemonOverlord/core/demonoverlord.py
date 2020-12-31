@@ -16,6 +16,7 @@ from DemonOverlord.core.util.config import (
     DatabaseConfig,
     APIConfig,
 )
+
 from DemonOverlord.core.util.command import Command
 from DemonOverlord.core.util.responses import WelcomeResponse
 from DemonOverlord.core.util.logger import (
@@ -102,14 +103,52 @@ class DemonOverlord(discord.Client):
         await self.database.add_guild(guild.id)
 
     async def on_guild_remove(self, guild) -> None:
-        print(LogMessage(f"Removed guild {guild.name}, removing all data from database"))
+        print(
+            LogMessage(f"Removed guild {guild.name}, removing all data from database")
+        )
         await self.database.remove_guild(guild.id)
 
     async def on_member_join(self, member: discord.Member):
-        if not (welcome := await self.database.get_welcome(member.guild.id)) == None:
+        if self.local or member.pending: return
+        autoroles = await self.database.get_autorole(member.guild.id)
+        if autoroles != None:
+            role = member.guild.get_role(autoroles["role_id"])
+            roles = [role] if role else []
+
+            if len(roles) >0:
+                try:
+                    await member.add_roles(*roles, reason="Automatic Role Assignment", atomic=True)
+                    print(LogMessage("Autorole assigned successfully"))
+                except discord.errors.Forbidden:
+                    print(LogMessage(f"Issue on Server '{member.guild}', permissions missing."))
+
+        welcome = await self.database.get_welcome(member.guild.id)
+        if welcome != None:
             response = WelcomeResponse(welcome, self, member)
             await response.channel.send(embed=response)
-            
+
+    async def on_member_update(self, before: discord.Member, after: discord.Member):
+        await self.wait_until_done()
+        
+        if not after.pending and before.pending != after.pending:
+
+            autoroles = await self.database.get_autorole(after.guild.id, wait_pending=True)
+            if autoroles != None:
+                role = after.guild.get_role(autoroles["role_id"])
+                roles = [role] if role else []
+
+                if len(roles) >0:
+                    try:
+                        await after.add_roles(*roles, reason="Automatic Role Assignment", atomic=True)
+                        print(LogMessage("Autorole assigned successfully"))
+                    except discord.errors.Forbidden:
+                        print(LogMessage(f"Issue on Server '{after.guild}', permissions missing."))
+
+            welcome = await self.database.get_welcome(after.guild.id, wait_pending=True)
+            if welcome != None and welcome["wait_pending"]:
+                    welcome = WelcomeResponse(welcome, self, after)
+                    await welcome.channel.send(embed=welcome)
+
     async def on_ready(self) -> None:
         print(LogHeader("CONNECTED SUCCESSFULLY"))
         print(LogMessage(f"{'USERNAME': <10}: {self.user.name}", time=False))
@@ -183,8 +222,7 @@ class DemonOverlord(discord.Client):
                 self.local = True
         for guild in self.guilds:
             print(f"Joined guild {guild.name} at {guild.me.joined_at}")
-            
-        
+
         # finish up and send the ready event
         print(LogHeader("startup done"))
         self._db_ready.set()

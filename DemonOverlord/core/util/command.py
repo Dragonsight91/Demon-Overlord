@@ -31,6 +31,7 @@ class Command(object):
         self.message = message
         self.short = False
         self.params = None
+        self.reference = None
 
         # create the command
         to_filter = ["", " ", None]
@@ -61,10 +62,12 @@ class Command(object):
             or temp[1] in bot.commands.interactions["social"]
             or temp[1] in bot.commands.interactions["combine"]
         ):
+            self.reference = message.reference
             self.command = "interactions"
             self.action = temp[1]
             self.special = bot.commands.interactions
             self.params = temp[2:] if len(temp) > 2 else None
+
 
         # WE LUV
         elif self.command == "chat":
@@ -97,7 +100,7 @@ class Command(object):
             response = ErrorResponse(self, traceback.format_exc())
 
         # Send the message
-        message = await self.channel.send(embed=response)
+        message = await self.channel.send(embed=response, reference=self.reference)
 
         # remove error messages and messages with timeout
         if isinstance(response, (TextResponse)):

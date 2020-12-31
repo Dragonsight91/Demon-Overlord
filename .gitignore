@@ -2,3 +2,4 @@
 *.env
 .vscode/
 data/
+db_objects.py

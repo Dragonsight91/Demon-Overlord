@@ -48,17 +48,14 @@ class WelcomeResponse(TextResponse):
         self.welcome = welcome
 
         for key in self.welcome:
-            if not key in ("embed_color", "guild_id", "welcome_channel") and not self.welcome[key] in (None, ""):
+            if not key in ("embed_color", "guild_id", "welcome_channel", "wait_pending") and not self.welcome[key] in (None, ""):
                 for match in regex.finditer(self.welcome[key]):
-                    start = match.start()
-                    end = match.end()
                     group = match.groupdict()
-                    var = None  # must always be string
+                    var = None  # must always be string or None
 
                     if group["ctrl_char"] == "@":
                         user_name = group["ctrl_seq"]
                         user = guild.get_member_named(user_name)
-                        print(group)
 
                         if group["ctrl_arg"] == "name":
                             var = user.display_name
@@ -126,7 +123,6 @@ class WelcomeResponse(TextResponse):
             not self.welcome["embed_author"] == None
             and not self.welcome["embed_author"] == ""
         ):
-
             self.set_author(name=self.welcome["embed_author"], 
             icon_url=(
                 self.welcome["embed_author_img"] 
@@ -138,7 +134,6 @@ class WelcomeResponse(TextResponse):
             not self.welcome["embed_description"] == None
             and not self.welcome["embed_description"] == ""
         ):
-            print(self.welcome["embed_description"])
             self.description = self.welcome["embed_description"]
 
 

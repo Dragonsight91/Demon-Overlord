@@ -1,5 +1,6 @@
 import discord
 import random
+import re
 
 # core imports
 from DemonOverlord.core.util.responses import ImageResponse, BadCommandResponse
@@ -31,12 +32,17 @@ async def handler(command) -> discord.Embed:
     else:
         # filter mentions from params. double mentions are ignored
         # this is the case where we don't mention everyone
+        regex = re.compile(r"<@.?\d+>")
         if (
             command.params != None
             and len(command.mentions) > 0
             and command.params[0] != "everyone"
         ):
-            command.params = command.params[len(command.mentions) :]
+            if not command.reference:
+                command.params = command.params[len(command.mentions) :]
+            else:
+                command.params = list(filter(lambda x : not regex.match(x), command.params))
+
             mentions = [i.display_name for i in command.mentions]
 
         # this is the previous case, but we DO mention everyone
@@ -45,17 +51,25 @@ async def handler(command) -> discord.Embed:
             and len(command.mentions) > 0
             and command.params[0] == "everyone"
         ):
-            command.params = command.params[len(command.mentions) + 1 :]
+            if not command.reference:
+                command.params = command.params[len(command.mentions) :]
+            else:
+                command.params = list(filter(lambda x : not regex.match(x), command.params)[1:])
+
             mentions = ["everyone"] + [i.display_name for i in command.mentions]
 
         # we only mention everyone
         elif command.params != None and command.params[0] == "everyone":
             command.params = command.params[1:]  # filter everyone
             mentions = ["everyone"]
-
+        
         # we mention nobody (used for combine interactions)
         else:
-            mentions = []
+            if not command.reference:
+                mentions = []
+            else:
+                mentions = [i.display_name for i in command.mentions]
+
 
         # what other type of interaction is this?, just check and try to match
         if command.action in social_interactions:

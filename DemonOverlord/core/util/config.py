@@ -1,5 +1,7 @@
 
 import datetime
+from enum import auto, unique
+from os.path import join
 import time
 import discord
 import os
@@ -528,7 +530,7 @@ class DatabaseConfig(object):
 
     async def check_guilds(self, bot:discord.Client):
         cursor = self.connection_main.cursor()
-        
+
     async def remove_guild(self, guild:int) -> None:
         """Remove a guild from all tables"""
         cursor = self.connection_main.cursor()
@@ -546,18 +548,46 @@ class DatabaseConfig(object):
         cursor.execute(f"UPDATE {schema_name}.{table_name} SET column=%s WHERE guild_id=%s", [column["column_default"], guild_id])
         cursor.close()
 
-    async def get_welcome(self, guild_id) -> dict:
-        try:
-            return self.settings[str(guild_id)]
-        except Exception: 
-            with self.connection_main.cursor() as cursor:
-                cursor.execute(f"SELECT * from admin.welcome_messages WHERE guild_id=%s", [guild_id])
-                res = cursor.fetchone()
-                self.settings[str(guild_id)] = res
-            return res
+    async def get_welcome(self, guild_id, *,  wait_pending=False) -> dict:
+        with self.connection_main.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM admin.welcome_messages WHERE guild_id=%s", [guild_id])
 
-    async def update_welcome() -> None:
+            if (res := cursor.fetchone()):
+                return res if res["wait_pending"] == wait_pending else None
+            else:
+                return None
+
+    async def update_welcome(self) -> None:
         pass
+    
+    async def get_autorole(self, guild_id, *, wait_pending=False) -> list():
+        with self.connection_main.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM admin.autoroles WHERE guild_id=%s", [guild_id])
+            if (res := cursor.fetchone()):
+                return res if res["wait_pending"] == wait_pending else None
+            else:
+                return None
+
+    async def add_autorole(self, guild_id, role_id, delay=None, wait_pending=None):
+        with self.connection_main.cursor() as cursor:
+            attr = [guild_id, role_id]
+            col_delay = col_wait = ""
+            values = "%s, %s"
+
+            if delay != None:
+                col_delay =',delay'
+                attr.append(delay)
+                values += ",%s"
+
+            if wait_pending != None:
+                col_wait = ',wait_pending' 
+                values += ",%s"
+                attr.append(wait_pending)
+
+            cursor.execute(f"INSERT INTO admin.autoroles (guild_id, role_id {col_delay} {col_wait}) VALUES ({values})", attr)
+
+            cursor.execute(f"SELECT * FROM admin.autoroles WHERE guild_id=%s", [guild_id])
+            res = cursor.fetchall()
 
     async def schema_fix(self) -> None:
         """"adds any schema marked as missing"""

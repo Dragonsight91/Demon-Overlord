@@ -91,6 +91,14 @@
                     "auto_increment": false
                 },
                 {
+                    "column_name" : "wait_pending",
+                    "data_type" : "boolean",
+                    "column_default" : false,
+                    "is_nullable" : false,
+                    "character_maximum_length" : null,
+                    "auto_increment" : false
+                },
+                {
                     "column_name" : "welcome_channel",
                     "data_type" : "bigint",
                     "column_default" : null,
@@ -339,6 +347,35 @@
                     "auto_increment" : false
                 }
             ]
+        },{
+            "table_name": "autoroles",
+            "table_schema": "admin",
+            "table_space": "pg_default",
+            "primary_key": "role_id",
+            "entry_required": false,
+            "comment": "A table that holds all roles that can be automatically assigned on join",
+            "columns": [{
+                "column_name" : "guild_id",
+                "data_type" : "bigint",
+                "column_default" : null,
+                "is_nullable" : false,
+                "character_maximum_length" : null,
+                "auto_increment" : false
+            }, {
+                "column_name" : "wait_pending",
+                "data_type" : "boolean",
+                "column_default" : false,
+                "is_nullable" : false,
+                "character_maximum_length" : null,
+                "auto_increment" : false
+            }, {
+                "column_name" : "role_id",
+                "data_type" : "bigint",
+                "column_default" : null,
+                "is_nullable" : false,
+                "character_maximum_length" : null,
+                "auto_increment" : false
+            }]
         }
     ]
 }
