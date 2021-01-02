@@ -628,12 +628,6 @@ class CommandConfig(object):
         with open(os.path.join(confdir, "special/izzy.json")) as f:
             self.izzylinks = json.load(f)
 
-        with open(os.path.join(confdir, "special/chats.json")) as f:
-            self.chats = json.load(f)
-
-        with open(os.path.join(confdir, "special/minecraft.json")) as f:
-            self.minecraft = json.load(f)
-
         # load in the command list and update the short commands
         for i in self.command_info.keys():
             for j in self.command_info[i]["commands"]:

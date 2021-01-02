@@ -109,18 +109,25 @@ class DemonOverlord(discord.Client):
         await self.database.remove_guild(guild.id)
 
     async def on_member_join(self, member: discord.Member):
-        if self.local or member.pending: return
+        if self.local or member.pending:
+            return
         autoroles = await self.database.get_autorole(member.guild.id)
         if autoroles != None:
             role = member.guild.get_role(autoroles["role_id"])
             roles = [role] if role else []
 
-            if len(roles) >0:
+            if len(roles) > 0:
                 try:
-                    await member.add_roles(*roles, reason="Automatic Role Assignment", atomic=True)
+                    await member.add_roles(
+                        *roles, reason="Automatic Role Assignment", atomic=True
+                    )
                     print(LogMessage("Autorole assigned successfully"))
                 except discord.errors.Forbidden:
-                    print(LogMessage(f"Issue on Server '{member.guild}', permissions missing."))
+                    print(
+                        LogMessage(
+                            f"Issue on Server '{member.guild}', permissions missing."
+                        )
+                    )
 
         welcome = await self.database.get_welcome(member.guild.id)
         if welcome != None:
@@ -129,25 +136,33 @@ class DemonOverlord(discord.Client):
 
     async def on_member_update(self, before: discord.Member, after: discord.Member):
         await self.wait_until_done()
-        
+
         if not after.pending and before.pending != after.pending:
 
-            autoroles = await self.database.get_autorole(after.guild.id, wait_pending=True)
+            autoroles = await self.database.get_autorole(
+                after.guild.id, wait_pending=True
+            )
             if autoroles != None:
                 role = after.guild.get_role(autoroles["role_id"])
                 roles = [role] if role else []
 
-                if len(roles) >0:
+                if len(roles) > 0:
                     try:
-                        await after.add_roles(*roles, reason="Automatic Role Assignment", atomic=True)
+                        await after.add_roles(
+                            *roles, reason="Automatic Role Assignment", atomic=True
+                        )
                         print(LogMessage("Autorole assigned successfully"))
                     except discord.errors.Forbidden:
-                        print(LogMessage(f"Issue on Server '{after.guild}', permissions missing."))
+                        print(
+                            LogMessage(
+                                f"Issue on Server '{after.guild}', permissions missing."
+                            )
+                        )
 
             welcome = await self.database.get_welcome(after.guild.id, wait_pending=True)
             if welcome != None and welcome["wait_pending"]:
-                    welcome = WelcomeResponse(welcome, self, after)
-                    await welcome.channel.send(embed=welcome)
+                welcome = WelcomeResponse(welcome, self, after)
+                await welcome.channel.send(embed=welcome)
 
     async def on_ready(self) -> None:
         print(LogHeader("CONNECTED SUCCESSFULLY"))
@@ -230,17 +245,24 @@ class DemonOverlord(discord.Client):
     async def on_message(self, message: discord.Message) -> None:
 
         # handle all commands
-        if message.author != self.user and message.content.startswith(
+        if not message.author.bot and message.content.startswith(
             self.config.mode["prefix"]
         ):
 
-            # signal typing status
-            async with message.channel.typing():
+            try:
+                # signal typing status
+                async with message.channel.typing():
 
-                # wait until bot has finished loading
-                await self.wait_until_done()
+                    # wait until bot has finished loading
+                    await self.wait_until_done()
 
-                # build the command and execute it
-                command = Command(self, message)
-                print(LogCommand(command))
-                await command.exec()
+                    # build the command and execute it
+                    command = Command(self, message)
+                    print(LogCommand(command))
+                    await command.exec()
+            except discord.errors.Forbidden:
+                print(
+                    LogMessage(
+                        "No permission to send to channel", msg_type=LogType.ERROR
+                    )
+                )

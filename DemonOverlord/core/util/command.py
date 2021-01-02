@@ -13,6 +13,7 @@ from DemonOverlord.core.util.responses import (
     BadCommandResponse,
     MissingPermissionResponse,
 )
+from DemonOverlord.core.util.logger import ( LogType, LogMessage)
 
 
 
@@ -77,9 +78,9 @@ class Command(object):
 
 
         # WE LUV
-        elif self.command == "chat":
+        elif self.command == "channel":
             self.action = None
-            self.params = temp[2:] if len(temp) > 2 else None
+            self.params = None
 
         # Y'AIN'T SPECIAL, YA LIL BITCH
         else:
@@ -105,6 +106,7 @@ class Command(object):
                 response = BadCommandResponse(self)
                 self.reference = None
         except discord.Forbidden:
+            print(LogMessage(f"No permission to run {self.command}", msg_type=LogType.ERROR))
             response = MissingPermissionResponse(self, traceback.format_exc())
             self.reference = None
         except Exception:
