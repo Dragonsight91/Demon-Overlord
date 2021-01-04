@@ -137,7 +137,7 @@ async def handler(command) -> discord.Embed:
 
     # add the user's message to the interaction.
     if command.params != None and len(command.params) > 0:
-        interact.add_message(" ".join(command.params))
+        interact.add_message(" ".join(command.params)[:1023])
 
     return interact
 
