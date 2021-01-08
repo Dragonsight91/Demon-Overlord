@@ -1,4 +1,4 @@
-discord.py>=1.5.1
+discord.py>=1.6.0
 psycopg2-binary==2.8.6
 dnspython==2.1.0
 ujson==4.0.1
