@@ -642,7 +642,7 @@
                 "https://media1.tenor.com/images/503bb007a3c84b569153dcfaaf9df46a/tenor.gif",
                 "https://media1.tenor.com/images/ea9a07318bd8400fbfbd658e9f5ecd5d/tenor.gif",
                 "https://media1.tenor.com/images/65a63a319a598ac908960bfc4b6f89ff/tenor.gif",
-                "https://media1.tenor.com/images/f24035839104cad2d18246e99ab384a6/tenor.gif"
+                "https://media1.tenor.com/images/2f23c53755a5c3494a7f54bbcf04d1cc/tenor.gif"
             ]
         },
         "hug": {
@@ -742,6 +742,28 @@
                 "https://media1.tenor.com/images/e5fbd6a39c6a0b760b1e0c15ff25bfb9/tenor.gif"
             ]
         },
+        "squish": {
+            "query": "smoosh",
+            "type": "social",
+            "action": "smooshes",
+            "emoji": "fufu",
+            "violent": false,
+            "self": [
+                "Smooshies smooshies, Your cheek now throbs."
+            ],
+            "gifs": [
+                "https://media1.tenor.com/images/71e5d4aa460a735ff4c54ba7b2c94d4b/tenor.gif",
+                "https://media1.tenor.com/images/5d2907e96d98557c6b4327c417da39f3/tenor.gif",
+                "https://media1.tenor.com/images/bc72896741a0949a72260954c3757e34/tenor.gif",
+                "https://media1.tenor.com/images/57b548e702565aa31924bcf76bf39f7d/tenor.gif",
+                "https://media1.tenor.com/images/da7d70c6059de8241b3c3a5751cd73b1/tenor.gif",
+                "https://media1.tenor.com/images/b60d1427bba1d48aca6d19d06f72042f/tenor.gif",
+                "https://media1.tenor.com/images/86f3e7cacf76898b7c2bd4cf50cadb21/tenor.gif",
+                "https://media1.tenor.com/images/8221aeddf2a3eb2b27a1a8748d69b6ed/tenor.gif",
+                "https://media1.tenor.com/images/983088f43d18d26a028ace8f4344265b/tenor.gif",
+                "https://media1.tenor.com/images/7f9fb6e015cd50162410103ae66bc04d/tenor.gif"
+            ]
+        },
         "shoot": {
             "query": "shoot",
             "type": "social",
@@ -750,7 +772,7 @@
             "violent": true,
             "self": [
                 "Stop, please get some help.",
-                "Awww let me hug you, i hope you are doing fine",
+                "Awww let me hug you, I hope you are doing fine",
                 "Please don't do this, we all love you :heart:"
             ],
             "gifs": [
