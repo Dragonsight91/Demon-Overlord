@@ -750,7 +750,7 @@
             "violent": true,
             "self": [
                 "Stop, please get some help.",
-                "Awww let me hug you, i hope you are doing fine",
+                "Awww let me hug you, I hope you are doing fine",
                 "Please don't do this, we all love you :heart:"
             ],
             "gifs": [
@@ -831,6 +831,30 @@
                 "https://media1.tenor.com/images/7b1f06eac73c36721912edcaacddf666/tenor.gif",
                 "https://media1.tenor.com/images/b714d7680f8b49d69b07bc2f1e052e72/tenor.gif",
                 "https://media1.tenor.com/images/1b1597b6b5a36a1d3ac10047c030a22c/tenor.gif"
+            ]
+        },
+        "throw": {
+            "query": "throw",
+            "type": "social",
+            "action": "throws something at",
+            "emoji": "izzyeyes",
+            "violent": true,
+            "self": [
+                "Let's throw a hug at you"
+            ],
+            "gifs": [
+                "https://media1.tenor.com/images/4eae9f586476853cdf9e63da5437630b/tenor.gif",
+                "https://media1.tenor.com/images/9bae129117b64bdca70bd90deb6ab80e/tenor.gif",
+                "https://media1.tenor.com/images/ab7b0e53c128481a8f00e077d8f9116c/tenor.gif",
+                "https://media1.tenor.com/images/876bafcecbf90c4809198bd8bbcfc046/tenor.gif",
+                "https://media1.tenor.com/images/e375c441356789b1760a6463096dae53/tenor.gif",
+                "https://media1.tenor.com/images/f9bb968d4ffd238651b8258089595665/tenor.gif",
+                "https://media1.tenor.com/images/2cdc20be64a750201b23a72cd3e19e6b/tenor.gif",
+                "https://media1.tenor.com/images/e194c072efada4a3dd96ed44cbda7d10/tenor.gif",
+                "https://media1.tenor.com/images/d14969a21a96ec46f61770c50fccf24f/tenor.gif",
+                "https://media1.tenor.com/images/a5b0c596a130bff78b062749bd75ac77/tenor.gif",
+                "https://media1.tenor.com/images/f8a659c13eaba712708e8b9797236e3c/tenor.gif",
+                "https://media1.tenor.com/images/5262e18c35b17f4b7fece37d260aaf82/tenor.gif"
             ]
         }
     }

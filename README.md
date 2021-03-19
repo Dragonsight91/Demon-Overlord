@@ -21,7 +21,7 @@ The bot uses five environment variables
 To get a bot key:
 
 - if you are member of InnerDemons:
-    1. Ask on [#programmer-hell](https://discordapp.com/channels/658407338822336554/684088661884928040) on the Discord server to be added to the dev team
+    1. Ask on [#the-tech-basement](https://discord.com/channels/793212926277976085/793215955546800170) on the Discord server to be added to the dev team
     2. Accept the invite
     3. Go to `Applications` and select the bot you want.
     4. Got to `Bots` copy the `TOKEN` next to the bot icon
